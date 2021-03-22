@@ -1,10 +1,12 @@
 import React from 'react';
 import { Navbar,Nav,NavDropdown,Button,Form } from 'react-bootstrap';
+import apartment from './apartment.png';
 
 const Navigation = () => {
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand>
+            <Navbar.Brand href="#home"><img src={apartment} alt="logo" width="50" height="50" /></Navbar.Brand>
+            {/* <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -28,8 +30,8 @@ const Navigation = () => {
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
                 <Form inline>
-                    <Button variant="outline-success">تسجيل خروج</Button>
-                    <Button variant="outline-success">اتصل بنا</Button>
+                    <Button className="m-2" variant="outline-success">تسجيل خروج</Button>
+                    <Button className="m-2" variant="outline-success">اتصل بنا</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>
