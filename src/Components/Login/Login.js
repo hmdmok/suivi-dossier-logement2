@@ -2,8 +2,8 @@ import React from 'react';
 
 const Login = () => {
     return (
-        <div>
-            <form class="form-signin" style={{ height: 250, width: 375 }}>
+        <div className="">
+            <form class="container form-signin border shadow p-3 mb-5 bg-body rounded">
                 <h1 class="h3 mb-3 font-weight-normal">الرجاء تسجيل الدخول</h1>
                 <label for="inputUsername" class="sr-only">اسم المستخدم</label>
                 <input type="username" id="inputUsername" class="form-control" placeholder="اسم المستخدم" required="" autofocus="" />

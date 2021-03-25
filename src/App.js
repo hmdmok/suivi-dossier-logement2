@@ -1,6 +1,9 @@
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
 import Login from './Components/Login/Login';
+import Demandeur from './Components/Demandeur/Demandeur';
+import Dossier from './Components/Dossier/Dossier';
+
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,8 +14,8 @@ function App() {
       <Navigation />
       <Logo />
       {/* <DisplayForm /> */}
-      {/* <Demandeur /> */}
-      {/* <Dossier /> */}
+      <Demandeur />
+      <Dossier />
       {/* <Miseajour /> */}
       <Login />
       {/* <Utilisateur /> */}
