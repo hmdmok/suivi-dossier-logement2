@@ -3,26 +3,54 @@ import Logo from './Components/Logo/Logo';
 import Login from './Components/Login/Login';
 import Demandeur from './Components/Demandeur/Demandeur';
 import Dossier from './Components/Dossier/Dossier';
+import DisplayForm from './Components/DisplayForm/DisplayForm';
+// import Apartment from './Components/Navigation/apartment.png';
 
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <Navigation />
-      <Logo />
-      {/* <DisplayForm /> */}
-      <Demandeur />
-      <Dossier />
-      {/* <Miseajour /> */}
-      <Login />
-      {/* <Utilisateur /> */}
-      {/* <ListDossiers /> */}
-      {/* <ListUtilisateurs /> */}
-    </div>
-  );
+class App extends Component{
+  constructor() {
+    super();
+    this.state = {
+      input: '',
+      route: 'Login',
+      user: 'seper'
+    }
+  }
+  
+  onInputChange = (event) => {
+      console.log(event.target.value);
+  }
+
+  onRouteChange = (route) => {
+      this.setState({route: route});
+  }
+
+  render() {
+    return (
+      <div className="App">
+        
+        { this.state.route === 'Login'
+          ?  <Login onRouteChange={this.onRouteChange}/>
+         :
+          <div> 
+            <Navigation onRouteChange={this.onRouteChange}/>
+            <Logo />
+            <DisplayForm />
+            <Demandeur onInputChange={this.onInputChange}/>
+            <Dossier />
+            {/* <Miseajour /> */}
+            {/* <Utilisateur /> */}
+            {/* <ListDossiers /> */}
+            {/* <ListUtilisateurs /> */}
+          </div>
+        }
+      </div>
+    );
+  }  
 }
 
 export default App;

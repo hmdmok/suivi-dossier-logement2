@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar,Nav,NavDropdown,Button,Form } from 'react-bootstrap';
 import apartment from './apartment.png';
 
-const Navigation = () => {
+const Navigation = ({onRouteChange}) => {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home"><img src={apartment} alt="logo" width="50" height="50" /></Navbar.Brand>
@@ -30,7 +30,11 @@ const Navigation = () => {
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
                 <Form inline>
-                    <Button className="m-2" variant="outline-success">تسجيل خروج</Button>
+                    <Button 
+                        onClick={() => onRouteChange('Login')} 
+                        className="m-2" 
+                        variant="outline-success"
+                        >تسجيل خروج</Button>
                     <Button className="m-2" variant="outline-success">اتصل بنا</Button>
                 </Form>
             </Navbar.Collapse>
