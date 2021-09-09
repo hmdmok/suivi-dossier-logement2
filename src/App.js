@@ -1,5 +1,5 @@
 import Navigation from './Components/Navigation/Navigation';
-import Logo from './Components/Logo/Logo';
+// import Logo from './Components/Logo/Logo';
 import Login from './Components/Login/Login';
 import Demandeur from './Components/Demandeur/Demandeur';
 import Dossier from './Components/Dossier/Dossier';
@@ -38,7 +38,7 @@ class App extends Component{
          :
           <div> 
             <Navigation onRouteChange={this.onRouteChange}/>
-            <Logo />
+            {/* <Logo /> */}
             <DisplayForm />
             <Demandeur onInputChange={this.onInputChange}/>
             <Dossier />
@@ -46,6 +46,7 @@ class App extends Component{
             {/* <Utilisateur /> */}
             {/* <ListDossiers /> */}
             {/* <ListUtilisateurs /> */}
+            {/* <DossierNumerique /> */}
           </div>
         }
       </div>

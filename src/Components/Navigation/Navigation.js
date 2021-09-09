@@ -10,23 +10,37 @@ const Navigation = ({onRouteChange}) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <NavDropdown title="ملف" id="basic-nav-dropdown">
+                    <NavDropdown title="تسيير الملف" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">تسجيل طالب سكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">حجز ملف طلب السكن</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">ملف طلب السكن الرقمي</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">تحيين ملف طلب السكن</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">تسيير المستخدمين</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.3">قائمة المستخدمين</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">قائمة ملفات طلب السكن</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.4">تسجيل خروج</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.4">تغيير المستخدم</NavDropdown.Item>
                     </NavDropdown>
-                    {/* <NavDropdown title="اعدادات" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    </NavDropdown> */}
+                    <NavDropdown title="تسيير الدراسة" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.3">محاضر الحصص</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">محاضر الاستفادة</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">قائمة تحقيق CNL</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">قائمة تحقيق CNAS</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">قائمة تحقيق CASNOS</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">قائمة المستفيدين</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                    </NavDropdown>
+                    <NavDropdown title="تسيير البيانات" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.3">استيراد بيانات طالبي السكن</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                    </NavDropdown>
+                    <NavDropdown title="تسيير المستخدمين" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.3">قائمة المستخدمين</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">تسيير المستخدمين</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                    </NavDropdown>
+                    <NavDropdown title="اعدادات" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">اعدادات العرض</NavDropdown.Item>
+                    </NavDropdown>
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
                 <Form inline>
