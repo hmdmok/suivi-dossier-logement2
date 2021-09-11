@@ -4,12 +4,12 @@ import apartment from './apartment.png';
 
 const Navigation = ({onRouteChange}) => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar className="row d-flex flex-row-reverse " bg="light" expand="lg">
             <Navbar.Brand href="#home"><img src={apartment} alt="logo" width="50" height="50" /></Navbar.Brand>
             {/* <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+            <Navbar.Collapse className="row d-flex flex-row-reverse justify-content-between mr-3" id="basic-navbar-nav">
+                <Nav className="row d-flex flex-row-reverse  mr-3">
                     <NavDropdown title="تسيير الملف" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">تسجيل طالب سكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">حجز ملف طلب السكن</NavDropdown.Item>
