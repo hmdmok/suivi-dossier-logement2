@@ -43,7 +43,7 @@ const Navigation = ({onRouteChange}) => {
                     </NavDropdown>
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
-                <Form inline>
+                <Form className="ml-4" inline>
                     <Button 
                         onClick={() => onRouteChange('Login')} 
                         className="m-2" 

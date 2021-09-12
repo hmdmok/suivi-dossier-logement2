@@ -4,12 +4,13 @@ import Login from './Components/Login/Login';
 import Demandeur from './Components/Demandeur/Demandeur';
 import Dossier from './Components/Dossier/Dossier';
 import DisplayForm from './Components/DisplayForm/DisplayForm';
-// import Apartment from './Components/Navigation/apartment.png';
+import Apartment from './Components/Navigation/apartment.png';
 
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Component } from 'react';
+import Logo from './Components/Logo/Logo';
 
 class App extends Component{
   constructor() {
@@ -34,7 +35,10 @@ class App extends Component{
       <div className="App">
         
         { this.state.route === 'Login'
-          ?  <Login onRouteChange={this.onRouteChange}/>
+          ? <div  className="p-5 d-flex flex-column align-items-center">
+              <Logo  title={"تطبيقة السكن"} pic={Apartment}/>
+              <Login onRouteChange={this.onRouteChange}/>
+            </div>
          :
           <div> 
             <Navigation onRouteChange={this.onRouteChange}/>

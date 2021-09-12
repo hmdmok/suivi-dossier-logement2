@@ -3,7 +3,7 @@ import React from 'react';
 const Dossier = () => {
     return (
         <div className="container border shadow p-3 mb-5 bg-body rounded">
-            <form> 
+            <div class="">
                 <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
                 <label htmlFor="date_depo"> تاريخ الإيداع : </label>
                 <input type="date" id="date_depo" name="date_depo" /><br />
@@ -124,7 +124,7 @@ const Dossier = () => {
                 <input type="submit" value="حفظ" />  
                 <input type="reset" value="إلغاء" />
 
-            </form>
+            </div>
         </div>
     );
 }

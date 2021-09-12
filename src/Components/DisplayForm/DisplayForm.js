@@ -14,7 +14,7 @@ class DisplayForm extends Component {
 
     render() {
         return (
-            <div className="container border shadow p-3 mb-5 bg-body rounded">
+            <div className="container border shadow p-3 mb-5 mt-5 bg-body rounded">
                 <div class="row justify-content-md-center">
                     <h1 className="col-12">الصفحة الرئيسة</h1>
                 </div>
