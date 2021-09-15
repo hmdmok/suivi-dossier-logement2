@@ -4,14 +4,14 @@ import apartment from './apartment.png';
 
 const Navigation = ({onRouteChange}) => {
     return (
-        <Navbar className="row d-flex flex-row-reverse " bg="light" expand="lg">
+        <Navbar className="d-flex flex-row-reverse" bg="light" expand="lg">
             <Navbar.Brand href="#home"><img src={apartment} alt="logo" width="50" height="50" /></Navbar.Brand>
             {/* <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className="row d-flex flex-row-reverse justify-content-between mr-3" id="basic-navbar-nav">
-                <Nav className="row d-flex flex-row-reverse  mr-3">
+            <Navbar.Collapse  className="d-lg-flex flex-lg-row-reverse justify-content-lg-between" id="basic-navbar-nav">
+                <Nav className="d-lg-flex flex-lg-row-reverse mx-4">
                     <NavDropdown title="تسيير الملف" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">تسجيل طالب سكن</NavDropdown.Item>
+                        <NavDropdown.Item href="#Demandeur/">تسجيل طالب سكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">حجز ملف طلب السكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">ملف طلب السكن الرقمي</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">تحيين ملف طلب السكن</NavDropdown.Item>
@@ -43,13 +43,13 @@ const Navigation = ({onRouteChange}) => {
                     </NavDropdown>
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
-                <Form className="ml-4" inline>
+                <Form  >
                     <Button 
                         onClick={() => onRouteChange('Login')} 
-                        className="m-2" 
+                        className="ml-1" 
                         variant="outline-success"
                         >تسجيل خروج</Button>
-                    <Button className="m-2" variant="outline-success">اتصل بنا</Button>
+                    <Button className="ml-1" variant="outline-success">اتصل بنا</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>

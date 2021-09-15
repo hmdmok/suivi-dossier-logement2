@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Login = ({onRouteChange}) => {
+const Login = () => {
     return (
         <div className="container form-signin border shadow p-3 mb-5 bg-body rounded">
             <h1 className="h3 mb-3 font-weight-normal">الرجاء تسجيل الدخول</h1>
@@ -9,10 +10,13 @@ const Login = ({onRouteChange}) => {
             <label htmlFor="inputPassword" className="sr-only">كلمة السر</label>
             <input type="password" id="inputPassword" className="form-control" placeholder="كلمة السر" required="" />
             <button 
-                onClick={() => onRouteChange('Home')}
+                
                 className="btn btn-lg btn-primary btn-block" 
                 type="submit"
-            >تسجيل الدخول</button>
+            >
+                <Link to='/DisplayForm'>تسجيل الدخول</Link>
+            
+            </button>
             <p className="mt-5 mb-3 text-muted">© 2021</p>
         </div>
     );
