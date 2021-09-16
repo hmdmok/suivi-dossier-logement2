@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Component } from 'react';
 // import Logo from './Components/Logo/Logo';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ProtectedRoute from './Components/ProtectdRoute/ProtectedRoute';
 
 class App extends Component{
   constructor() {
@@ -18,10 +19,15 @@ class App extends Component{
     this.state = {
       input: '',
       route: 'Login',
-      user: 'super'
+      user_type: 'super',
+      authent: false
     }
   }
   
+  setAuthent = (auth) => {
+    
+  }
+
   onInputChange = (event) => {
       console.log(event.target.value);
   }
@@ -50,7 +56,9 @@ class App extends Component{
                 <Route path="/Demandeur" component={Demandeur} />
                 {/* <Demandeur onInputChange={this.onInputChange}/> */}
 
-                <Route path="/Dossier" component={Dossier} />
+                {/* <Route path="/Dossier" component={Dossier} /> */}
+
+                <ProtectedRoute path="/Dossier" component={Dossier} isAuth={this.state.authent} />
               </Switch>
               {/* <Dossier /> */}
 

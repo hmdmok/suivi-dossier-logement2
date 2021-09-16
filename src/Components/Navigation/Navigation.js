@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navbar,Nav,NavDropdown,Button,Form } from 'react-bootstrap';
 import apartment from './apartment.png';
+import {useHistory} from 'react-router-dom'
 
-const Navigation = ({onRouteChange}) => {
+const Navigation = () => {
+    let history = useHistory();
     return (
         <Navbar className="d-flex flex-row-reverse" bg="light" expand="lg">
             <Navbar.Brand href="#home"><img src={apartment} alt="logo" width="50" height="50" /></Navbar.Brand>
@@ -45,7 +47,7 @@ const Navigation = ({onRouteChange}) => {
                 </Nav>
                 <Form  >
                     <Button 
-                        onClick={() => onRouteChange('Login')} 
+                        onClick={() => {history.push("/Login")} }
                         className="ml-1" 
                         variant="outline-success"
                         >تسجيل خروج</Button>

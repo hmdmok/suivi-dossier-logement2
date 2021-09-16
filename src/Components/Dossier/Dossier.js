@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 const Dossier = () => {
     return (
@@ -129,4 +130,4 @@ const Dossier = () => {
     );
 }
 
-export default Dossier;
+export default withRouter( Dossier);
