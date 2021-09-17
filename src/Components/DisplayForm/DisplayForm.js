@@ -5,28 +5,22 @@ import demandeur from './demandeur.png';
 import update from './update.png';
 
 class DisplayForm extends Component {
-    constructor() {
-        super();
-        this.state = {
-          input: ''        
-        }
-      }
-
+    
     render() {
         return (
-            <div className="container border shadow mb-3 mt-3 bg-body rounded">
-                <div class="d-flex justify-content-center">
+            <div className="container border shadow p-4 mb-3 mt-3 bg-body rounded" >
+                <div className="d-flex justify-content-center">
                     <h1 className="col-12">الصفحة الرئيسة</h1>
                 </div>
-                <div class="row d-flex justify-content-center flex-row-reverse">
+                <div className="row d-flex justify-content-center flex-row-reverse">
                     <div className="m-2" >
-                        <Logo title={"تحرير ملف"} pic={file}/>
+                        <Logo root={"/Dossier"} title={"تحرير ملف"} pic={file}/>
                     </div>
                     <div className="m-2" >
-                        <Logo title={"تحرير طالب"} pic={demandeur} />
+                        <Logo root={"/Demandeur"} title={"تحرير طالب"} pic={demandeur} />
                     </div>
                     <div className="m-2" >
-                        <Logo title={"تحيين ملف"} pic={update} />
+                        <Logo root={"/Demandeur"} title={"تحيين ملف"} pic={update} />
                     </div>
                 </div>
             </div>

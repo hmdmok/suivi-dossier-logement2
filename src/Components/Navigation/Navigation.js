@@ -11,16 +11,16 @@ const Navigation = () => {
             {/* <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse  className="d-lg-flex flex-lg-row-reverse justify-content-lg-between" id="basic-navbar-nav">
-                <Nav className="d-lg-flex flex-lg-row-reverse mx-4">
+                <Nav className="d-lg-flex flex-lg-row-reverse mx-2">
                     <NavDropdown title="تسيير الملف" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#Demandeur/">تسجيل طالب سكن</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">حجز ملف طلب السكن</NavDropdown.Item>
+                        <NavDropdown.Item href="/Demandeur">تسجيل طالب سكن</NavDropdown.Item>
+                        <NavDropdown.Item href="/Dossier">حجز ملف طلب السكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">ملف طلب السكن الرقمي</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">تحيين ملف طلب السكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">قائمة ملفات طلب السكن</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">تسجيل خروج</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">تغيير المستخدم</NavDropdown.Item>
+                        <NavDropdown.Item href="/">تسجيل خروج</NavDropdown.Item>
+                        <NavDropdown.Item href="/Login">تغيير المستخدم</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="تسيير الدراسة" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.3">محاضر الحصص</NavDropdown.Item>

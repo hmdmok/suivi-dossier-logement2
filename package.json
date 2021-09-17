@@ -7,6 +7,8 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.3",
     "react-dom": "^17.0.2",
@@ -15,6 +17,7 @@
     "react-tilt": "^0.1.4",
     "ssri": "^8.0.1",
     "tachyons": "^4.12.0",
+    "typescript": "^4.4.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

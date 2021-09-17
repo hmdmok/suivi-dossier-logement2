@@ -1,16 +1,18 @@
 import React from 'react';
-import Tilt from 'react-tilt'
- 
+import Tilt from 'react-tilt'; 
+import {useHistory} from 'react-router-dom'
 
-const Logo = ({title , pic}) => {
+
+const Logo = ({root, title, pic}) => {
+    let history = useHistory();
     return (
-        <Tilt className="Tilt" options={{ max : 20 }} style={{ height: 175, width: 175 }} >
-            <div className="Tilt-inner border shadow p-3 m-1 bg-body rounded" >
+        <div onClick={() => {history.push(root)}} >
+            <Tilt  className="logo border shadow p-3 m-1 bg-body rounded" style={{ height: 175, width: 175 } }  >
                 {title}
                 <br /> 
                 <img src={pic} alt="logo" height="100" width="100"/>
-            </div>
-        </Tilt>    
+            </Tilt>
+        </div> 
     );
 }
 
