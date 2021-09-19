@@ -24,8 +24,18 @@ class App extends Component{
     }
   }
   
+  // componentDidMount() {
+  //   fetch('http://localhost:3005')
+  //   .then(response => response.json())
+  //   .then(console.log);
+  // }
+
   setAuthent = (auth) => {
-    
+    this.setState({authent: auth});
+  }
+
+  setUsertype = (type) => {
+    this.setState({user_type: type});
   }
 
   onInputChange = (event) => {
@@ -47,7 +57,7 @@ class App extends Component{
                 <Route path="/" exact component={Home} />
                 {/* <Home /> */}
 
-                <Route path="/Login" exact component={Login} />
+                <Route path="/Login" exact render={()=>{return <Login setAuth={this.setAuth} setUsertype={this.setUsertype} onInputChange={this.onInputChange} />}}  />
                 {/* <Login /> */}
 
                 {/* <Logo /> */}
@@ -59,7 +69,7 @@ class App extends Component{
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
 
-                <ProtectedRoute path="/Dossier" component={Dossier} isAuth={this.state.authent} />
+                <ProtectedRoute path="/Dossier" component={Dossier} isAuth={ this.state.authent}  userType={this.state.user_type } />
               </Switch>
               {/* <Dossier /> */}
 
