@@ -38,6 +38,14 @@ class App extends Component{
     this.setState({user_type: type});
   }
 
+  getAuthent = () => {
+    return this.state.authent;
+  }
+
+  getUsertype = () => {
+    return this.state.user_type;
+  }
+
   onInputChange = (event) => {
       console.log(event.target.value);
   }
@@ -57,7 +65,7 @@ class App extends Component{
                 <Route path="/" exact component={Home} />
                 {/* <Home /> */}
 
-                <Route path="/Login" exact render={()=>{return <Login setAuth={this.setAuth} setUsertype={this.setUsertype} onInputChange={this.onInputChange} />}}  />
+                <Route path="/Login" exact render={props => (<Login {...props}  getUsertype={ this.getUsertype} setAuthent={this.setAuthent} setUsertype={this.setUsertype} onInputChange={this.onInputChange} getAuthent={this.getAuthent} />)}  />
                 {/* <Login /> */}
 
                 {/* <Logo /> */}
@@ -69,7 +77,7 @@ class App extends Component{
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
 
-                <ProtectedRoute path="/Dossier" component={Dossier} isAuth={ this.state.authent}  userType={this.state.user_type } />
+                <ProtectedRoute path="/Dossier" component={Dossier} getAuthent={this.getAuthent}  usertype={this.state.user_type } />
               </Switch>
               {/* <Dossier /> */}
 

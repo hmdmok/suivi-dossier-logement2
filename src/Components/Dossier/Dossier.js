@@ -1,9 +1,13 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
-const Dossier = () => {
-    return (
-        <div className="container border shadow p-3 mb-5 bg-body rounded">
+const Dossier = ({usertype}) => {
+    
+    if (usertype === 'super'){
+        console.log(usertype);
+        return (
+        
+            <div className="container border shadow p-3 mb-5 bg-body rounded">
             <div class="">
                 <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
                 <label htmlFor="date_depo"> تاريخ الإيداع : </label>
@@ -127,7 +131,13 @@ const Dossier = () => {
 
             </div>
         </div>
-    );
+        );
+    }else{
+        console.log(usertype);
+        return <Redirect path="/Login" />;
+    }
+        
+    
 }
 
 export default withRouter( Dossier);

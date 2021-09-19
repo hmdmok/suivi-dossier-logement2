@@ -21,11 +21,12 @@ class Login extends React.Component {
     }
 
     onSubmitLogin = (event) => {
-       this.props.setAuth(true);
+       this.props.setAuthent(true);
        this.props.setUsertype('super');
        console.log(this.state);
-       console.log(this.props);
-       
+       console.log(this.props.getAuthent());
+       console.log(this.props.getUsertype());
+       this.props.history.push("/DisplayForm");    
     }
  
     render(){
@@ -37,7 +38,7 @@ class Login extends React.Component {
                 <label htmlFor="inputPassword" className="sr-only">كلمة السر</label>
                 <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control" placeholder="كلمة السر" required="" />
                 <button 
-                    onClick={this.onSubmitLogin}
+                    onClick={()=> this.onSubmitLogin()}
                     className="btn btn-lg btn-primary btn-block" 
                     type="submit"
                 >
