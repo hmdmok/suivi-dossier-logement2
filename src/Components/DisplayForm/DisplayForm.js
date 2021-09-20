@@ -22,6 +22,9 @@ class DisplayForm extends Component {
                     <div className="m-2" >
                         <Logo root={"/Demandeur"} title={"تحيين ملف"} pic={update} />
                     </div>
+                    <div className="m-2" >
+                        <Logo root={"/Utilisateur"} title={"اظافة مستخدم"} pic={update} />
+                    </div>
                 </div>
             </div>
         );

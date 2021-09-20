@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-function ProtectedRoute({ getAuthent, usertype, component: Component, ...rest}) {
+function ProtectedRoute({ setAuthent, setUsertype, loadUser, getAuthent, usertype, component: Component, ...rest}) {
     return(
         <Route {...rest} render={(props)=>{
             if (getAuthent()) {
-                console.log(getAuthent());
-                return <Component usertype={usertype} />;
+                // console.log(getAuthent());
+                return <Component {...props} usertype={usertype} loadUser={loadUser} setAuthent={setAuthent} setUsertype={setUsertype}/>;
             } else{
                 console.log(getAuthent());
                 return(

@@ -20,25 +20,40 @@ class Login extends React.Component {
         this.setState({loginPassword: event.target.value,});
     }
 
-    onSubmitLogin = (event) => {
-       this.props.setAuthent(true);
-       this.props.setUsertype('super');
-       console.log(this.state);
-       console.log(this.props.getAuthent());
-       console.log(this.props.getUsertype());
-       this.props.history.push("/DisplayForm");    
+    onSubmitLogin = () => {
+        fetch('http://localhost:3005/Login', {
+            method: 'post',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                username: this.state.loginUsername,
+                password: this.state.loginPassword
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.auth === 'Success'){
+                this.props.loadUser(data.user);
+                this.props.setAuthent(true);
+                this.props.setUsertype(data.usertype);
+                this.props.history.push("/DisplayForm");
+            }else{
+                this.props.setAuthent(false);
+                this.props.setUsertype('');
+            }
+        });
+           
     }
  
     render(){
         return (
-            <div className="container form-signin border shadow p-3 mb-5 bg-body rounded">
+            <div className="container form-signin border shadow p-3 mb-5 bg-light bg-gradient rounded">
                 <h1 className="h3 mb-3 font-weight-normal">الرجاء تسجيل الدخول</h1>
                 <label htmlFor="inputUsername" className="sr-only">اسم المستخدم</label>
-                <input onChange={this.onUsernameChange} type="username" id="inputUsername" className="form-control" placeholder="اسم المستخدم" required="" autoFocus />
+                <input onChange={this.onUsernameChange} type="username" id="inputUsername" className="form-control text-right" placeholder="اسم المستخدم" required="" autoFocus />
                 <label htmlFor="inputPassword" className="sr-only">كلمة السر</label>
-                <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control" placeholder="كلمة السر" required="" />
+                <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control text-right" placeholder="كلمة السر" required="" />
                 <button 
-                    onClick={()=> this.onSubmitLogin()}
+                    onClick={this.onSubmitLogin}
                     className="btn btn-lg btn-primary btn-block" 
                     type="submit"
                 >

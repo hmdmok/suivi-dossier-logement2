@@ -4,11 +4,11 @@ import { withRouter, Redirect } from 'react-router-dom';
 const Dossier = ({usertype}) => {
     
     if (usertype === 'super'){
-        console.log(usertype);
+        // console.log(usertype);
         return (
         
             <div className="container border shadow p-3 mb-5 bg-body rounded">
-            <div class="">
+            <div className="">
                 <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
                 <label htmlFor="date_depo"> تاريخ الإيداع : </label>
                 <input type="date" id="date_depo" name="date_depo" /><br />
@@ -23,8 +23,6 @@ const Dossier = ({usertype}) => {
 
                 <input type="radio" id="marie" name="stuation_f" value="marie" />
                 <label htmlFor="marie">متزوج\ة</label><br />
-
-                
 
                 <input type="radio" id="divor" name="stuation_f" value="divor" />
                 <label htmlFor="divor">مطلق\ة</label><br />
@@ -133,8 +131,8 @@ const Dossier = ({usertype}) => {
         </div>
         );
     }else{
-        console.log(usertype);
-        return <Redirect path="/Login" />;
+        // console.log(usertype);
+        return <Redirect to="/Login" />;
     }
         
     
