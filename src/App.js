@@ -23,7 +23,8 @@ class App extends Component{
       authent: false,
       user: {
         id: '',
-        name: '',
+        firstname: '',
+        lastname: '',
         username: '',
         usertype: '',
         birthday: '',
@@ -51,7 +52,11 @@ class App extends Component{
   }
 
   getUsertype = () => {
-    return this.state.user_type;
+    return this.state.user.usertype;
+  }
+
+  getUsername = () => {
+    return this.state.user.username;
   }
 
   onInputChange = (event) => {
@@ -61,11 +66,12 @@ class App extends Component{
   loadUser = (user) => {
     this.setState({user: {
         id: user.id,
-        name: user.name,
-        username: user.username,
-        usertype: user.usertype,
-        birthday: user.birthday,
-        lastconnection: user.lastconnection
+        firstname: user.first_name,
+        lastname: user.last_name,
+        username: user.user_name,
+        usertype: user.user_type,
+        birthday: user.user_birthday,
+        lastconnection: user.last_connection
       }
     });
   }
@@ -81,21 +87,21 @@ class App extends Component{
                 <Route path="/" exact component={Home} />
                 {/* <Home /> */}
 
-                <Route path="/Login" exact render={props => (<Login {...props}  getUsertype={ this.getUsertype} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} onInputChange={this.onInputChange} getAuthent={this.getAuthent} />)}  />
+                <Route path="/Login" exact render={props => (<Login {...props} getUsername={this.getUsername} getUsertype={ this.getUsertype} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} onInputChange={this.onInputChange} getAuthent={this.getAuthent} />)}  />
                 {/* <Login /> */}
 
                 {/* <Logo /> */}
-                <Route path="/DisplayForm" component={DisplayForm}  getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
+                <ProtectedRoute path="/DisplayForm" component={DisplayForm} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
                 {/* <DisplayForm /> */}
 
-                <ProtectedRoute path="/Demandeur" component={Demandeur}  getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
+                <ProtectedRoute path="/Demandeur" component={Demandeur} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
                 {/* <Demandeur onInputChange={this.onInputChange}/> */}
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
-                <ProtectedRoute path="/Dossier" component={Dossier} getAuthent={this.getAuthent}  usertype={this.state.user_type } />
+                <ProtectedRoute path="/Dossier" component={Dossier} getUsername={this.getUsername} getAuthent={this.getAuthent}  usertype={this.state.user_type } />
                 {/* <Dossier /> */}
 
-                <ProtectedRoute path="/Utilisateur" component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
+                <ProtectedRoute path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
                 {/* <Utilisateur /> */}
 
               </Switch>

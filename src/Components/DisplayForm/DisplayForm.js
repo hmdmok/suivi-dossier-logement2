@@ -5,10 +5,21 @@ import demandeur from './demandeur.png';
 import update from './update.png';
 
 class DisplayForm extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state = {
+            loginUsername: '',
+            loginPassword: ''
+        }
+    }
+
     render() {
+        const username = this.props.getUsername();
         return (
             <div className="container border shadow p-4 mb-3 mt-3 bg-body rounded" >
+                <div className="m-2 row d-flex justify-content-center flex-row-reverse" >
+                    <Logo root={"/DisplayForm"} title={username} pic={file}/>
+                </div>
                 <div className="d-flex justify-content-center">
                     <h1 className="col-12">الصفحة الرئيسة</h1>
                 </div>
