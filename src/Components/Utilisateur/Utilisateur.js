@@ -74,50 +74,88 @@ class Utilisateur extends React.Component {
  
     render(){
         return (
-            <div className="container form-signin border shadow p-3 mb-5 bg-body rounded">
+            <div className="container form-signin border shadow p-3 mt-5 bg-body rounded">
                 <h1 className="h3 mb-3 font-weight-normal">الرجاء ادخال معلومات المستخدم</h1>
-
-                <label htmlFor="inputFirstName" className="sr-only">الاسم </label>
-                <input onChange={this.onFirstnameChange} type="name" id="inputFirstName" className="form-control text-right" placeholder="الاسم الكامل" required="" autoFocus />
-
-                <label htmlFor="inputLastName" className="sr-only">اللقب </label>
-                <input onChange={this.onLastnameChange} type="name" id="inputLastName" className="form-control text-right" placeholder="الاسم الكامل" required="" autoFocus />
-
-                <label htmlFor="inputUsername" className="sr-only">اسم المستخدم</label>
-                <input onChange={this.onUsernameChange} type="username" id="inputUsername" className="form-control text-right" placeholder="اسم المستخدم" required = {true} autoFocus />
-
-                <label htmlFor="inputPassword" className="sr-only">كلمة السر</label>
-                <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control text-right" placeholder="كلمة السر" required={true} />
-
-                <label htmlFor="inputRepassword" className="sr-only">تاكيد كلمة السر</label>
-                <input onChange={this.onRepasswordChange} type="password" id="inputRepassword" className="form-control text-right" placeholder="تاكيد كلمة السر" required={true} />
-
-                <label htmlFor="inputUsertype" className="sr-only">وظيفة المستخدم</label>
-                <select onChange={this.onUsertypeChange} id="inputUsertype" className="form-control text-right" placeholder="وظيفة المستخدم">
-                    <option selected hidden>وظيفة المستخدم</option>
-                    <option value="super">مطور</option>
-                    <option value="admin">مسير</option>
-                    <option value="agent">عون حجز</option>
-                </select>                
-                {/* <input onChange={this.onUsertypeChange} type="list" id="inputUsertype" className="form-control" placeholder="وظيفة المستخدم" required="" /> */}
-
-                <label htmlFor="inputBirthday" className="sr-only">تاريخ الميلاد</label>
-                <input onChange={this.onBirthdayChange} type="date" id="inputBirthday" className="form-control" placeholder="تاريخ الميلاد" required="" />
-
-                <button 
-                    onClick={this.onSubmitUtilisateur}
-                    className="btn btn-lg btn-primary btn-block" 
-                    type="submit"
-                >
-                    تسجيل الدخول
-                </button>
-                <button 
-                    className="btn btn-lg btn-primary btn-block" 
-                    type="reset"
-                >
-                    تراجع
-                </button>
-                <p className="mt-5 mb-3 text-muted">© 2021</p>
+                <div className= "row text-right">
+                    <div className="col order-last">
+                        <label htmlFor="inputFirstName" className="text-right">الاسم </label>
+                        <input onChange={this.onFirstnameChange} 
+                        type="name" 
+                        id="inputFirstName" 
+                        className="form-control text-right" 
+                        placeholder="الاسم " 
+                        required="" autoFocus />
+                    </div>
+                    <div className="col order-first">
+                        <label htmlFor="inputLastName" className="text-right">اللقب </label>
+                        <input onChange={this.onLastnameChange} 
+                        type="name" 
+                        id="inputLastName" 
+                        className="form-control text-right" 
+                        placeholder="اللقب" 
+                        required="" autoFocus />
+                    </div>
+                    
+                </div>
+                <div className="row text-right">
+                    <div className="col">
+                        <label htmlFor="inputUsername" className="">اسم المستخدم</label>
+                        <input onChange={this.onUsernameChange} type="username" id="inputUsername" className="form-control text-right" placeholder="اسم المستخدم" required = {true} autoFocus />
+                    </div>
+                </div>
+                <div className="row text-right">
+                    
+                    <div className="col order-last">
+                        <label htmlFor="inputPassword" className="">كلمة السر</label>
+                        <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control text-right" placeholder="كلمة السر" required={true} />
+                    </div>
+                    <div className="col">
+                        <label htmlFor="inputRepassword" className="">تاكيد كلمة السر</label>
+                        <input onChange={this.onRepasswordChange} type="password" id="inputRepassword" className="form-control text-right" placeholder="تاكيد كلمة السر" required={true} />
+                    </div>
+                </div>
+                <div className="row text-right">
+                    <div className="col">
+                        <label htmlFor="inputUsertype" className="">وظيفة المستخدم</label>
+                        <select onChange={this.onUsertypeChange} id="inputUsertype" className="form-control text-right" placeholder="وظيفة المستخدم">
+                            <option selected hidden>وظيفة المستخدم</option>
+                            <option value="super">مطور</option>
+                            <option value="admin">مسير</option>
+                            <option value="agent">عون حجز</option>
+                        </select>                
+                    </div>
+                </div>
+                <div className="row text-right">
+                    <div className="col">
+                        <label htmlFor="inputBirthday" className="">تاريخ الميلاد</label>
+                        <input onChange={this.onBirthdayChange} type="date" id="inputBirthday" className="form-control text-right" placeholder="تاريخ الميلاد" required="" />
+                    </div>
+                </div>
+                <hr/>
+                <div className= "row">
+                    <div className="col order-last">
+                        <button 
+                        onClick={this.onSubmitUtilisateur}
+                        className="btn btn-lg btn-primary btn-block" 
+                        type="submit"
+                        >
+                            تسجيل الدخول
+                        </button>
+                    </div>
+                    <div className="col">
+                        <button 
+                        className="btn btn-lg btn-primary btn-block" 
+                        type="reset"
+                        >
+                            تراجع
+                        </button>
+                    </div>
+                    
+                    
+                </div>
+                
+                
+                <p className="mt-5 mb-3 text-muted">© 2021 hmdmok</p>
             </div>
         );
     }
