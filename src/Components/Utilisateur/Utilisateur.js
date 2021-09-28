@@ -74,7 +74,7 @@ class Utilisateur extends React.Component {
  
     render(){
         return (
-            <div className="container form-signin border shadow p-3 mt-5 bg-body rounded">
+            <div className="container form-signin border shadow p-3 mt-2 bg-body rounded">
                 <h1 className="h3 mb-3 font-weight-normal">الرجاء ادخال معلومات المستخدم</h1>
                 <div className= "row text-right">
                     <div className="col order-last">
