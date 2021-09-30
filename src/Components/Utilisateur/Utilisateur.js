@@ -74,13 +74,13 @@ class Utilisateur extends React.Component {
  
     render(){
         return (
-            <div className="container form-signin border shadow p-3 mt-2 bg-body rounded">
+            <form className="container form-signin border shadow p-3 mt-2 bg-body rounded">
                 <h1 className="h3 mb-3 font-weight-normal">الرجاء ادخال معلومات المستخدم</h1>
                 <div className= "row text-right">
                     <div className="col order-last">
                         <label htmlFor="inputFirstName" className="text-right">الاسم </label>
                         <input onChange={this.onFirstnameChange} 
-                        type="name" 
+                        type="text" 
                         id="inputFirstName" 
                         className="form-control text-right" 
                         placeholder="الاسم " 
@@ -134,21 +134,20 @@ class Utilisateur extends React.Component {
                 <hr/>
                 <div className= "row">
                     <div className="col order-last">
-                        <button 
+                        <input 
                         onClick={this.onSubmitUtilisateur}
                         className="btn btn-lg btn-primary btn-block" 
                         type="submit"
-                        >
-                            تسجيل الدخول
-                        </button>
+                        value="  تسجيل الدخول"
+                        />
                     </div>
                     <div className="col">
-                        <button 
+                        <input 
                         className="btn btn-lg btn-primary btn-block" 
                         type="reset"
-                        >
-                            تراجع
-                        </button>
+                        value="تراجع"
+                        />
+                       
                     </div>
                     
                     
@@ -156,7 +155,7 @@ class Utilisateur extends React.Component {
                 
                 
                 <p className="mt-5 mb-3 text-muted">© 2021 hmdmok</p>
-            </div>
+            </form>
         );
     }
 }

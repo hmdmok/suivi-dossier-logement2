@@ -16,20 +16,6 @@ const Dossier = ({usertype}) => {
                 <label htmlFor="num_dos"> رقم الملف : </label>
                 <input type="number" id="num_dos" name="num_dos" /><br />
 
-                <div className="intro"><label >الحالة العائلية</label> </div> <br />
-
-                <input type="radio" id="cilib" name="stuation_f" value="cilib" />
-                <label htmlFor="cilib">أعزب\عزباء </label><br />
-
-                <input type="radio" id="marie" name="stuation_f" value="marie" />
-                <label htmlFor="marie">متزوج\ة</label><br />
-
-                <input type="radio" id="divor" name="stuation_f" value="divor" />
-                <label htmlFor="divor">مطلق\ة</label><br />
-
-                <input type="radio" id="veuf" name="stuation_f" value="veuf" />
-                <label htmlFor="veuf">أرمل\ة</label><br />
-
                 <label >عدد الأولاد</label><br />
                 <label htmlFor="num_enf"></label>
                 <input type="number" name="num_enf" /><br />
