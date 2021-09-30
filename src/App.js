@@ -13,6 +13,7 @@ import { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectdRoute/ProtectedRoute';
 import Utilisateur from './Components/Utilisateur/Utilisateur';
+import Contact from './Components/Contact/Contact';
 
 class App extends Component{
   constructor() {
@@ -82,7 +83,7 @@ class App extends Component{
       <div className="App">
        <Router>
             <div> 
-              <Navigation onRouteChange={this.onRouteChange}/>
+              <Navigation />
               <Switch>
                 <Route path="/" exact component={Home} />
                 {/* <Home /> */}
@@ -103,6 +104,8 @@ class App extends Component{
 
                 <ProtectedRoute path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
                 {/* <Utilisateur /> */}
+
+                <Route path="/Contact" component={Contact} />
 
               </Switch>
               

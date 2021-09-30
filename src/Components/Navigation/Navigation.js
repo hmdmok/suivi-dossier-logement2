@@ -51,7 +51,7 @@ const Navigation = () => {
                         className="ml-1" 
                         variant="outline-success"
                         >تسجيل خروج</Button>
-                    <Button className="ml-1" variant="outline-success">اتصل بنا</Button>
+                    <Button onClick={() => {history.push("/Contact")} } className="ml-1" variant="outline-success">اتصل بنا</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>
