@@ -57,7 +57,11 @@ class App extends Component{
   }
 
   getUsername = () => {
-    return this.state.user.username;
+    return (this.state.user.username);
+  }
+
+  getUserid = () => {
+    return this.state.user.id;
   }
 
   onInputChange = (event) => {
@@ -95,7 +99,7 @@ class App extends Component{
                 <ProtectedRoute path="/DisplayForm" component={DisplayForm} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
                 {/* <DisplayForm /> */}
 
-                <ProtectedRoute path="/Demandeur" component={Demandeur} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
+                <ProtectedRoute path="/Demandeur" userid={this.getUserid()} component={Demandeur} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
                 {/* <Demandeur onInputChange={this.onInputChange}/> */}
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
@@ -103,6 +107,7 @@ class App extends Component{
                 {/* <Dossier /> */}
 
                 <ProtectedRoute path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
+                {/* <Route path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} /> */}
                 {/* <Utilisateur /> */}
 
                 <Route path="/Contact" component={Contact} />
