@@ -12,6 +12,7 @@ class Utilisateur extends React.Component {
             repassword: '',
             usertype: '',
             birthday: '',
+            remark: '',
         }
     }
 
@@ -43,6 +44,10 @@ class Utilisateur extends React.Component {
         this.setState({birthday: event.target.value,});
     }
 
+    onRemarkChange = (event) => {
+        this.setState({remark: event.target.value,});
+    }
+
     onSubmitUtilisateur = () => {
         fetch('http://localhost:3005/Utilisateur', {
             method: 'post',
@@ -54,12 +59,13 @@ class Utilisateur extends React.Component {
                 password:  this.state.password,
                 usertype:  this.state.usertype,
                 birthday:  this.state.birthday,
+                creator: this.props.getUsername(),
+                remark:  this.state.remark,
             })
         })
         .then(response => response.json())
         .then(user => {
             if(user){
-                // console.log(user);
                 this.props.loadUser(user);
                 this.props.setAuthent(true);
                 this.props.setUsertype(user.usertype);
@@ -74,8 +80,8 @@ class Utilisateur extends React.Component {
  
     render(){
         return (
-            <form className="container form-signin border shadow p-3 mt-2 bg-body rounded">
-                <h1 className="h3 mb-3 font-weight-normal">الرجاء ادخال معلومات المستخدم</h1>
+            <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+                <h1>الرجاء ادخال معلومات المستخدم</h1>
                 <div className= "row text-right">
                     <div className="col order-last">
                         <label htmlFor="inputFirstName" className="text-right">الاسم </label>
@@ -131,6 +137,12 @@ class Utilisateur extends React.Component {
                         <input onChange={this.onBirthdayChange} type="date" id="inputBirthday" className="form-control text-right" placeholder="تاريخ الميلاد" required="" />
                     </div>
                 </div>
+                <div className="row text-right">
+                    <div className="col">
+                        <label htmlFor="inpuRemark" className="">ملاحظات </label>
+                        <input onChange={this.onRemarkChange} type="text" id="inputRemark" className="form-control text-right" placeholder="ملاحظات " />
+                    </div>
+                </div>
                 <hr/>
                 <div className= "row">
                     <div className="col order-last">
@@ -155,7 +167,7 @@ class Utilisateur extends React.Component {
                 
                 
                 <p className="mt-5 mb-3 text-muted">© 2021 hmdmok</p>
-            </form>
+            </div>
         );
     }
 }

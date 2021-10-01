@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Person extends React.Component {
     constructor(props){
         super(props);
@@ -21,7 +22,11 @@ class Person extends React.Component {
             prenom_m_fr: '',
             nom_m: '',
             nom_m_fr: '',
+            num_i_n: '',
             stuation_f: '',
+            type: '',
+            creator: '',
+            remark: ''
         }
     }
 
@@ -93,12 +98,45 @@ class Person extends React.Component {
         this.setState({nom_m_fr: event.target.value,});
     }
 
+    onNum_i_nChange = (event) => {
+        this.setState({num_i_n: event.target.value,});
+    }
+
     onStuation_fChange = (event) => {
         this.setState({stuation_f: event.target.value,});
     }
 
-    onSubmitPerson = (event) => {
-        console.log(this.state)
+    onRemarkChange = (event) => {
+        this.setState({remark: event.target.value,});
+    }
+
+    onSubmitPerson = () => {
+        
+        let perType = "";
+        if(this.props.type){perType = "dema"}
+        else {perType = "conj";}
+        this.setState({type: perType});
+        this.setState({creator: this.props.userid});
+        
+        fetch('http://localhost:3005/Person', {
+            method: 'post',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(this.state)
+        })
+        .then(response => response.json())
+        .then(user => {
+            if(user){
+                this.props.props.loadUser(user);
+                this.props.setAuthent(true);
+                this.props.setUsertype(user.usertype);
+                this.props.history.push("/DisplayForm");
+            }else{
+                this.props.setAuthent(false);
+                this.props.setUsertype('');
+            }
+        });
+       
+
     }
 
    render(){
@@ -181,6 +219,13 @@ class Person extends React.Component {
                         <input onChange={this.onNom_m_frChange} type="text" id="nom_m_fr" className="form-control text-right" name="nom_m_fr" placeholder="لقب الأم باللاتينية" /><br />
                     </div>
                 </div> 
+                <div className="text-right">
+                    <label htmlFor="num_i_n"> رقم التعريف الوطني</label>
+                    <input onChange={this.onNum_i_nChange} type="text" id="num_i_n" className="form-control text-right" name="num_i_n" />
+                    <label htmlFor="remark"> ملاحظات</label>
+                    <input onChange={this.onRemarkChange} type="text" id="remark" className="form-control text-right" name="remark" />
+                </div>
+                
                 <div onChange={this.onStuation_fChange} hidden={!this.props.type} className="text-right">
                     <div className="intro"><label >الحالة العائلية</label> </div> <br />
 
