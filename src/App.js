@@ -1,19 +1,16 @@
 import Navigation from './Components/Navigation/Navigation';
-// import Logo from './Components/Logo/Logo';
 import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
-import Demandeur from './Components/Demandeur/Demandeur';
 import Dossier from './Components/Dossier/Dossier';
 import DisplayForm from './Components/DisplayForm/DisplayForm';
-// import Apartment from './Components/Navigation/apartment.png';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Component } from 'react';
-// import Logo from './Components/Logo/Logo';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectdRoute/ProtectedRoute';
 import Utilisateur from './Components/Utilisateur/Utilisateur';
 import Contact from './Components/Contact/Contact';
+import Person from './Components/Person/Person';
 
 class App extends Component{
   constructor() {
@@ -34,12 +31,6 @@ class App extends Component{
     }
   }
   
-  // componentDidMount() {
-  //   fetch('http://localhost:3005')
-  //   .then(response => response.json())
-  //   .then(console.log);
-  // }
-
   setAuthent = (auth) => {
     this.setState({authent: auth});
   }
@@ -92,21 +83,68 @@ class App extends Component{
                 <Route path="/" exact component={Home} />
                 {/* <Home /> */}
 
-                <Route path="/Login" exact render={props => (<Login {...props} getUsername={this.getUsername} getUsertype={ this.getUsertype} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} onInputChange={this.onInputChange} getAuthent={this.getAuthent} />)}  />
+                <Route path="/Login" exact render= { props => (
+                  <Login 
+                    {...props} 
+                    getUsername={this.getUsername} 
+                    getUsertype={ this.getUsertype} 
+                    loadUser={this.loadUser} 
+                    setAuthent={this.setAuthent} 
+                    setUsertype={this.setUsertype} 
+                    onInputChange={this.onInputChange} 
+                    getAuthent={this.getAuthent} 
+                  />)}  
+                />
                 {/* <Login /> */}
 
                 {/* <Logo /> */}
-                <ProtectedRoute path="/DisplayForm" component={DisplayForm} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
+                <ProtectedRoute 
+                  path="/DisplayForm" 
+                  component={DisplayForm} 
+                  getUsername={this.getUsername}
+                  getAuthent={this.getAuthent} 
+                  usertype={this.state.user_type} 
+                  loadUser={this.loadUser} 
+                  setAuthent={this.setAuthent} 
+                  setUsertype={this.setUsertype} 
+                />
                 {/* <DisplayForm /> */}
 
-                <ProtectedRoute path="/Demandeur" userid={this.getUserid()} component={Demandeur} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
+                <ProtectedRoute 
+                  path="/Demandeur" 
+                  type={true} 
+                  title="الرجاء إدخال بيانات طالب السكن" 
+                  getUserid={this.getUserid} 
+                  component={Person} 
+                  getUsername={this.getUsername} 
+                  getAuthent={this.getAuthent} 
+                  usertype={this.state.user_type} 
+                  loadUser={this.loadUser} 
+                  setAuthent={this.setAuthent} 
+                  setUsertype={this.setUsertype}
+                />
                 {/* <Demandeur onInputChange={this.onInputChange}/> */}
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
-                <ProtectedRoute path="/Dossier" component={Dossier} getUsername={this.getUsername} getAuthent={this.getAuthent}  usertype={this.state.user_type } />
+                <ProtectedRoute 
+                  path="/Dossier" 
+                  component={Dossier} 
+                  getUsername={this.getUsername} 
+                  getAuthent={this.getAuthent}  
+                  usertype={this.state.user_type } 
+                />
                 {/* <Dossier /> */}
 
-                <ProtectedRoute path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
+                <ProtectedRoute 
+                  path="/Utilisateur" 
+                  getUsername={this.getUsername} 
+                  component={Utilisateur} 
+                  getAuthent={this.getAuthent}  
+                  usertype={this.state.user_type} 
+                  loadUser={this.loadUser} 
+                  setAuthent={this.setAuthent} 
+                  setUsertype={this.setUsertype} 
+                />
                 {/* <Route path="/Utilisateur" getUsername={this.getUsername} component={Utilisateur} getAuthent={this.getAuthent}  usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} /> */}
                 {/* <Utilisateur /> */}
 
