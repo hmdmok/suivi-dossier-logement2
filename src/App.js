@@ -14,6 +14,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectdRoute/ProtectedRoute';
 import Utilisateur from './Components/Utilisateur/Utilisateur';
 import Contact from './Components/Contact/Contact';
+import Person from './Components/Person/Person';
 
 class App extends Component{
   constructor() {
@@ -99,7 +100,7 @@ class App extends Component{
                 <ProtectedRoute path="/DisplayForm" component={DisplayForm} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype} />
                 {/* <DisplayForm /> */}
 
-                <ProtectedRoute path="/Demandeur" userid={this.getUserid()} component={Demandeur} getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
+                <ProtectedRoute path="/Demandeur" userid={this.getUserid()} component={Person} type={true} title="الرجاء إدخال بيانات طالب السكن" getUsername={this.getUsername} getAuthent={this.getAuthent} usertype={this.state.user_type} loadUser={this.loadUser} setAuthent={this.setAuthent} setUsertype={this.setUsertype}/>
                 {/* <Demandeur onInputChange={this.onInputChange}/> */}
 
                 {/* <Route path="/Dossier" component={Dossier} /> */}
