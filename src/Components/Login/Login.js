@@ -12,15 +12,12 @@ class Login extends React.Component {
 
 
 
-    onUsernameChange = (event) => {
-        this.setState({loginUsername: event.target.value,});
+    onHandleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value,});
     }
 
-    onPasswordChange = (event) => {
-        this.setState({loginPassword: event.target.value,});
-    }
-
-    onSubmitLogin = () => {
+    onSubmitLogin = (event) => {
+        event.preventDefault();
         fetch('http://localhost:3005/Login', {
             method: 'post',
             headers: {'content-type': 'application/json'},
@@ -46,22 +43,42 @@ class Login extends React.Component {
  
     render(){
         return (
-            <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+            <form
+                onSubmit={this.onSubmitLogin} 
+                className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+
                 <h1 className="h3 mb-3 font-weight-normal">الرجاء تسجيل الدخول</h1>
                 <label htmlFor="inputUsername" className="sr-only">اسم المستخدم</label>
-                <input onChange={this.onUsernameChange} type="username" id="inputUsername" className="form-control text-right" placeholder="اسم المستخدم" required="" autoFocus />
+                <input 
+                    name="loginUsername"
+                    onChange={this.onHandleChange} 
+                    type="username" 
+                    id="inputUsername" 
+                    className="form-control text-right" 
+                    placeholder="اسم المستخدم" 
+                    required
+                    autoFocus 
+                />
                 <label htmlFor="inputPassword" className="sr-only">كلمة السر</label>
-                <input onChange={this.onPasswordChange} type="password" id="inputPassword" className="form-control text-right" placeholder="كلمة السر" required="" />
+                <input 
+                    name="loginPassword"
+                    onChange={this.onHandleChange} 
+                    type="password" 
+                    id="inputPassword" 
+                    className="form-control text-right" 
+                    placeholder="كلمة السر" 
+                    required
+                />
                 <hr/>
                 <button 
-                    onClick={this.onSubmitLogin}
+                    
                     className="btn btn-lg btn-primary btn-block" 
                     type="submit"
                 >
                     تسجيل الدخول
                 </button>
                 <p className="mt-5 mb-3 text-muted">© 2021</p>
-            </div>
+            </form>
         );
     }
 }

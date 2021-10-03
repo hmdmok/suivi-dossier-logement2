@@ -30,97 +30,21 @@ class Person extends React.Component {
         }
     }
 
-    onPrenomChange = (event) => {
-        this.setState({prenom: event.target.value,});
+    onHandleChange = (event) => {
+        const userID = this.props.getUserid();
+        this.setState({creator: userID})
+        this.setState({[event.target.name]: event.target.value,});
     }
 
-    onPrenom_frChange = (event) => {
-        this.setState({prenom_fr: event.target.value,});
-    }
-           
-    onNomChange = (event) => {
-        this.setState({nom: event.target.value,});
-    }
-
-    onNom_frChange = (event) => {
-        this.setState({nom_fr: event.target.value,});
-    }
-
-    onGenderChange = (event) => {
-        this.setState({gender: event.target.value,});
-    }
-
-    onNum_actChange = (event) => {
-        this.setState({num_act: event.target.value,});
-    }
-
-    onDate_nChange = (event) => {
-        this.setState({date_n: event.target.value,});
-    }
-
-    onLieu_nChange = (event) => {
-        this.setState({lieu_n: event.target.value,});
-    }
-
-    onLieu_n_frChange = (event) => {
-        this.setState({lieu_n_fr: event.target.value,});
-    }
-
-    onWil_nChange = (event) => {
-        this.setState({wil_n: event.target.value,});
-    }
-
-    onCom_nChange = (event) => {
-        this.setState({com_n: event.target.value,});
-    }
-
-    onPrenom_pChange = (event) => {
-        this.setState({prenom_p: event.target.value,});
-    }
-
-    onPrenom_p_frChange = (event) => {
-        this.setState({prenom_p_fr: event.target.value,});
-    }
-
-    onPrenom_mChange = (event) => {
-        this.setState({prenom_m: event.target.value,});
-    }
-
-    onPrenom_m_frChange = (event) => {
-        this.setState({prenom_m_fr: event.target.value,});
-    }
-
-    onNom_mChange = (event) => {
-        this.setState({nom_m: event.target.value,});
-    }
-
-    onNom_m_frChange = (event) => {
-        this.setState({nom_m_fr: event.target.value,});
-    }
-
-    onNum_i_nChange = (event) => {
-        this.setState({num_i_n: event.target.value,});
-    }
-
-    onStuation_fChange = (event) => {
-        this.setState({stuation_f: event.target.value,});
-    }
-
-    onRemarkChange = (event) => {
-        this.setState({remark: event.target.value,});
-    }
-
-    onSubmitPerson = () => {
-        
+    onSubmitPerson = (event) => {
+        event.preventDefault();
         let perType = "";
         if(this.props.type){perType = "dema"}
         else {perType = "conj";}
         this.setState({type: perType});
-        this.setState({creator: this.props.getUserid()});
-        console.log(this.state);
 
         fetch('http://localhost:3005/Person', {
-            method: 'post',
+            method: 'post', 
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(this.state)
         })
@@ -139,7 +63,7 @@ class Person extends React.Component {
         <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
             <h1>{this.props.title}</h1>
 	
-            <div >
+            <form onSubmit={this.onSubmitPerson} >
                 <div className= "row text-right">
                     <div className="col-sm order-sm-last">
                         <label htmlFor="prenom">الاسم</label>
@@ -149,10 +73,10 @@ class Person extends React.Component {
                             className="form-control text-right" 
                             name="prenom" 
                             placeholder="الاسم" 
-                            onChange={this.onPrenomChange} 
+                            onChange={this.onHandleChange} 
                         /> 
                         <input 
-                            onChange={this.onPrenom_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="prenom_fr" 
                             name="prenom_fr" 
@@ -165,7 +89,7 @@ class Person extends React.Component {
                     <div className="col-sm order-sm-first">
                         <label htmlFor="nom">اللقب</label>
                         <input 
-                            onChange={this.onNomChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="nom" 
                             className="form-control text-right"  
@@ -173,7 +97,7 @@ class Person extends React.Component {
                             placeholder="اللقب" 
                         />
                         <input 
-                            onChange={this.onNom_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="nom_fr" 
                             name="nom_fr" 
@@ -185,7 +109,7 @@ class Person extends React.Component {
                 </div> 
                 <div className= "row text-right">
                     <div className="col-sm order-sm-last">
-                        <div onChange={this.onGenderChange} >
+                        <div name="gender" onChange={this.onHandleChange} >
                             <label >الجنس</label>
                             <br />
                             <input type="radio" id="male"  name="gender" value="m" />
@@ -196,15 +120,16 @@ class Person extends React.Component {
                         
                         <label htmlFor="num_act">رقم عقد الميلاد</label>
                         <input 
-                            onChange={this.onNum_actChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             className="form-control text-right" 
                             name="num_act" 
+                            required
                         /><br />
 
                         <label htmlFor="date_n">تاريخ الميلاد </label>
                         <input 
-                            onChange={this.onDate_nChange} 
+                            onChange={this.onHandleChange} 
                             type="date" 
                             id="date_n" 
                             className="form-control text-right" 
@@ -217,10 +142,12 @@ class Person extends React.Component {
                     <div className="col-sm order-sm-first">
                     <label htmlFor="wil_n">ولاية الميلاد</label>
                         <select 
-                            onChange={this.onWil_nChange} 
+                            onChange={this.onHandleChange} 
                             id="wil_n"  
                             className="form-control text-right" 
-                            name="wil_n" defaultValue="-1">
+                            name="wil_n" 
+                            defaultValue="-1"
+                            required>
                             
                             <option  value="-1" disabled hidden>اختر ولاية الميلاد</option>
                             <option value="0"></option>
@@ -228,14 +155,14 @@ class Person extends React.Component {
 
                         <label htmlFor="lieu_n">مكان الميلاد</label>
                         <input 
-                            onChange={this.onLieu_nChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="lieu_n" 
                             className="form-control text-right" 
                             name="lieu_n" 
                         />
                         <input 
-                            onChange={this.onLieu_n_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="lieu_n_fr"  
                             className="form-control text-right" 
@@ -245,11 +172,12 @@ class Person extends React.Component {
 
                         <label htmlFor="com_n">بلدية الميلاد</label>
                         <select 
-                            onChange={this.onCom_nChange} 
+                            onChange={this.onHandleChange} 
                             id="com_n" 
                             className="form-control text-right" 
                             name="com_n" 
-                            defaultValue="-1">
+                            defaultValue="-1"
+                            required>
 
                             <option  value="-1" disabled  hidden>اختر بلدية الميلاد</option>
                             <option value="0"></option>
@@ -257,14 +185,14 @@ class Person extends React.Component {
 
                         <label htmlFor="prenom_p"> اسم الاب</label>
                         <input 
-                            onChange={this.onPrenom_pChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="prenom_p" 
                             className="form-control text-right" 
                             name="prenom_p" 
                         /> 
                         <input 
-                            onChange={this.onPrenom_p_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="prenom_p_fr" 
                             className="form-control text-right" 
@@ -279,14 +207,14 @@ class Person extends React.Component {
                     <div className="col-sm order-sm-last">
                         <label htmlFor="prenom_m"> اسم الأم</label>
                         <input 
-                            onChange={this.onPrenom_mChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="prenom_m" 
                             className="form-control text-right" 
                             name="prenom_m" 
                         /> 
                         <input 
-                            onChange={this.onPrenom_m_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="prenom_m_fr" 
                             className="form-control text-right" 
@@ -297,14 +225,14 @@ class Person extends React.Component {
                     <div className="col-sm order-sm-first">
                         <label htmlFor="nom_m">لقب الأم</label>
                         <input 
-                            onChange={this.onNom_mChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="nom_m" 
                             className="form-control text-right" 
                             name="nom_m" 
                         />
                         <input 
-                            onChange={this.onNom_m_frChange} 
+                            onChange={this.onHandleChange} 
                             type="text" 
                             id="nom_m_fr" 
                             className="form-control text-right" 
@@ -316,7 +244,7 @@ class Person extends React.Component {
                 <div className="text-right">
                     <label htmlFor="num_i_n"> رقم التعريف الوطني</label>
                     <input 
-                        onChange={this.onNum_i_nChange} 
+                        onChange={this.onHandleChange} 
                         type="text" 
                         id="num_i_n" 
                         className="form-control text-right" 
@@ -325,7 +253,7 @@ class Person extends React.Component {
                     
                     <label htmlFor="remark"> ملاحظات</label>
                     <input 
-                        onChange={this.onRemarkChange} 
+                        onChange={this.onHandleChange} 
                         type="text" 
                         id="remark" 
                         className="form-control text-right" 
@@ -333,7 +261,12 @@ class Person extends React.Component {
                     />
                 </div>
                 
-                <div onChange={this.onStuation_fChange} hidden={!this.props.type} className="text-right">
+                <div 
+                    name="stuation_f"
+                    onChange={this.onHandleChange} 
+                    hidden={!this.props.type} 
+                    className="text-right">
+
                     <div className="intro"><label >الحالة العائلية</label> </div> <br />
 
                     <input type="radio" id="cilib" name="stuation_f" value="c" />
@@ -351,7 +284,7 @@ class Person extends React.Component {
                 <hr/>
                 <div className= "row text-right">
                     <div className="col-sm order-sm-last my-2">
-                        <input onClick={this.onSubmitPerson} type="submit" className="btn btn-lg btn-primary btn-block"  value="حفظ" />  
+                        <input type="submit" className="btn btn-lg btn-primary btn-block"  value="حفظ" />  
                     </div>
                     <div className="col-sm order-sm-first my-2">
                         <input type="reset" className="btn btn-lg btn-primary btn-block" value="إلغاء" />
@@ -359,7 +292,7 @@ class Person extends React.Component {
                 </div>
                 
                 
-            </div>
+            </form>
         </div>
     );
     }

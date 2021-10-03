@@ -13,8 +13,8 @@ const Navigation = () => {
             <Navbar.Collapse  className="d-lg-flex flex-lg-row-reverse justify-content-lg-between" id="basic-navbar-nav">
                 <Nav className="d-lg-flex flex-lg-row-reverse mx-2">
                     <NavDropdown title="تسيير الملف" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/Demandeur">تسجيل طالب سكن</NavDropdown.Item>
-                        <NavDropdown.Item href="/Dossier">حجز ملف طلب السكن</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => {history.push("/Demandeur")} }>تسجيل طالب سكن</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => {history.push("/Dossier")} }>حجز ملف طلب السكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">ملف طلب السكن الرقمي</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">تحيين ملف طلب السكن</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">قائمة ملفات طلب السكن</NavDropdown.Item>
@@ -42,6 +42,8 @@ const Navigation = () => {
                     </NavDropdown>
                     <NavDropdown title="اعدادات" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">اعدادات العرض</NavDropdown.Item>
+                        <NavDropdown.Item href="/ًWillaya"> قائمة الولايات</NavDropdown.Item>
+                        <NavDropdown.Item href="/Commune"> قائمة البلديات</NavDropdown.Item>
                     </NavDropdown>
                     <Nav.Link href="#help">مساعدة</Nav.Link>
                 </Nav>
