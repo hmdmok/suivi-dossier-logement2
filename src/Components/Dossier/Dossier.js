@@ -5,20 +5,56 @@ class Dossier extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            loginUsername: '',
-            loginPassword: ''
+            newpersons: [],
+            hide_new: false,
+            hide_saisi: true,
+            root: 'new'
         }
     }
     
+    componentDidMount(){
+        fetch('http://localhost:3005/Person')
+        .then(response => response.json())
+        .then(data => this.setState({ newpersons: data}))
+        .catch(err => console.log(err));
+         
+    }
+
     render(){
-        const usertype = this.props.usertype;
+        const {usertype} = this.props;
+        if (this.state.root === 'new') 
         if (usertype !== ''){
             // console.log(usertype);
             return (
-            
                 <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+                    <div hidden={this.state.hide_new}>   
+                        <h1 className="my-5">الرجاء إختيار الشخص المراد ادخال ملفه</h1>
+                        <table className="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                <th scope="col">رقم</th>
+                                <th scope="col">الاسم</th>
+                                <th scope="col">اللقب</th>
+                                <th scope="col">تاريخ الميلاد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.newpersons.map( person => (
+                                    <tr>
+                                        <th scope="row">{person.id}</th>
+                                        <td>{person.prenom}</td>
+                                        <td>{person.nom}</td>
+                                        <td className="date">{person.date_n}</td>
+                                    </tr>
+                                    // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
+                                )
+                                )}
+                                
+                            </tbody>
+                        </table>
+                    </div>
                     
-                    <div className="">
+                    <div className="" hidden={this.state.hide_saisi}>
                         <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
                         <label htmlFor="date_depo"> تاريخ الإيداع : </label>
                         <input type="date" id="date_depo" name="date_depo" /><br />

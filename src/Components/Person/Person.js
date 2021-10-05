@@ -32,28 +32,26 @@ class Person extends React.Component {
         }
     }
 
-    async componentDidMount(){
-        const response = await fetch('http://localhost:3005/Wilaya');
-        const data = await response.json();
-        this.setState({ wilayas: data});
+    componentDidMount(){
+       fetch('http://localhost:3005/Wilaya')
+       .then(response => response.json())
+       .then(data => this.setState({ wilayas: data}))
+       .catch(err => console.log(err));
         
-    }
-
-    async componentDidUpdate(){
-        if (this.state.wil_n > 0){
-            const code_wilaya = this.state.wil_n;
-            const url = 'http://localhost:3005/Communes/'+code_wilaya;
-            const response = await fetch(url);
-            const communes = await response.json();
-            this.setState({ communes: communes});           
-        }
-         
     }
 
     onHandleChange = (event) => {
         const userID = this.props.getUserid();  
         this.setState({creator: userID,})
-        this.setState({[event.target.name]: event.target.value,});
+        this.setState({[event.target.name]: event.target.value,})
+        if (event.target.name === "wil_n"){
+            const code_wilaya = event.target.value;
+            const url = 'http://localhost:3005/Communes/'+code_wilaya;
+            fetch(url)
+            .then(response => response.json())
+            .then(communes => this.setState({ communes: communes}))
+            .catch(err => console.log(err));
+        }
         
     }
 
