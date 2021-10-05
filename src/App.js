@@ -115,6 +115,7 @@ class App extends Component{
                   userid={this.getUserid} 
                   component={Person} 
                   type={true} 
+                  demande_type={true} 
                   title="الرجاء إدخال بيانات طالب السكن" 
                   getUsername={this.getUsername} 
                   getAuthent={this.getAuthent} 

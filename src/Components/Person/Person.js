@@ -26,14 +26,33 @@ class Person extends React.Component {
             stuation_f: '',
             type: '',
             creator: '',
-            remark: ''
+            remark: '',
+            wilayas: [],
+            communes: []
         }
     }
 
+    componentDidMount(){
+       fetch('http://localhost:3005/Wilaya')
+       .then(response => response.json())
+       .then(data => this.setState({ wilayas: data}))
+       .catch(err => console.log(err));
+        
+    }
+
     onHandleChange = (event) => {
-        const userID = this.props.getUserid();
-        this.setState({creator: userID})
-        this.setState({[event.target.name]: event.target.value,});
+        const userID = this.props.getUserid();  
+        this.setState({creator: userID,})
+        this.setState({[event.target.name]: event.target.value,})
+        if (event.target.name === "wil_n"){
+            const code_wilaya = event.target.value;
+            const url = 'http://localhost:3005/Communes/'+code_wilaya;
+            fetch(url)
+            .then(response => response.json())
+            .then(communes => this.setState({ communes: communes}))
+            .catch(err => console.log(err));
+        }
+        
     }
 
     onSubmitPerson = (event) => {
@@ -150,7 +169,11 @@ class Person extends React.Component {
                             required>
                             
                             <option  value="-1" disabled hidden>اختر ولاية الميلاد</option>
-                            <option value="0"></option>
+                            {this.state.wilayas.map( wilaya => (
+                                <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
+                            )
+                            )}
+                            
                         </select><br />
 
                         <label htmlFor="lieu_n">مكان الميلاد</label>
@@ -180,7 +203,10 @@ class Person extends React.Component {
                             required>
 
                             <option  value="-1" disabled  hidden>اختر بلدية الميلاد</option>
-                            <option value="0"></option>
+                            {this.state.communes.map( commune => (
+                                <option key={commune.id} value={commune.code} >{commune.nom_commune}</option>
+                            )
+                            )}
                         </select><br />
 
                         <label htmlFor="prenom_p"> اسم الاب</label>

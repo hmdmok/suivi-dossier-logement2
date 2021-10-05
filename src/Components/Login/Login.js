@@ -37,7 +37,7 @@ class Login extends React.Component {
                 this.props.setAuthent(false);
                 this.props.setUsertype('');
             }
-        });
+        }).catch(err => console.log(err));
            
     }
  
