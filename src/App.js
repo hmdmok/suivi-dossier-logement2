@@ -133,6 +133,7 @@ class App extends Component{
                   getUsername={this.getUsername} 
                   getAuthent={this.getAuthent}  
                   usertype={this.state.user_type } 
+                  getUserid={this.getUserid} 
                 />
                 {/* <Dossier /> */}
 

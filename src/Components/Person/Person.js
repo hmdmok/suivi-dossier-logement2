@@ -79,7 +79,7 @@ class Person extends React.Component {
 
    render(){
     return (
-        <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+        <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded" hidden={this.props.hidden}>
             <h1>{this.props.title}</h1>
 	
             <form onSubmit={this.onSubmitPerson} >
