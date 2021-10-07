@@ -37,7 +37,10 @@ class Person extends React.Component {
        .then(response => response.json())
        .then(data => this.setState({ wilayas: data}))
        .catch(err => console.log(err));
-        
+       if(this.props.demande_type){
+           this.setState({type:  "dema"});
+       }
+       else {this.setState({type:  "conj"})};
     }
 
     onHandleChange = (event) => {
@@ -57,10 +60,8 @@ class Person extends React.Component {
 
     onSubmitPerson = (event) => {
         event.preventDefault();
-        let perType = "";
-        if(this.props.type){perType = "dema"}
-        else {perType = "conj";}
-        this.setState({type: perType});
+        
+        
 
         fetch('http://localhost:3005/Person', {
             method: 'post', 
@@ -204,7 +205,7 @@ class Person extends React.Component {
 
                             <option  value="-1" disabled  hidden>اختر بلدية الميلاد</option>
                             {this.state.communes.map( commune => (
-                                <option key={commune.id} value={commune.code} >{commune.nom_commune}</option>
+                                <option key={commune.id} value={commune.code_commune} >{commune.nom_commune}</option>
                             )
                             )}
                         </select><br />
@@ -290,7 +291,7 @@ class Person extends React.Component {
                 <div 
                     name="stuation_f"
                     onChange={this.onHandleChange} 
-                    hidden={!this.props.type} 
+                    hidden={!this.props.demande_type} 
                     className="text-right">
 
                     <div className="intro"><label >الحالة العائلية</label> </div> <br />
