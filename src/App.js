@@ -112,7 +112,7 @@ class App extends Component{
 
                 <ProtectedRoute 
                   path="/Demandeur" 
-                  userid={this.getUserid} 
+                  getUserid={this.getUserid} 
                   component={Person} 
                   type={true} 
                   demande_type={true} 

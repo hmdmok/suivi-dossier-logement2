@@ -28,11 +28,17 @@ class Person extends React.Component {
             creator: '',
             remark: '',
             wilayas: [],
-            communes: []
+            communes: [],
+            hide_situation_p: true,
+            situation_p: "",
+            profession: "",
+            salaire: ""
         }
     }
 
     componentDidMount(){
+        const userID = this.props.getUserid();  
+        this.setState({creator: userID,})
        fetch('http://localhost:3005/Wilaya')
        .then(response => response.json())
        .then(data => this.setState({ wilayas: data}))
@@ -44,8 +50,7 @@ class Person extends React.Component {
     }
 
     onHandleChange = (event) => {
-        const userID = this.props.getUserid();  
-        this.setState({creator: userID,})
+       
         this.setState({[event.target.name]: event.target.value,})
         if (event.target.name === "wil_n"){
             const code_wilaya = event.target.value;
@@ -55,7 +60,16 @@ class Person extends React.Component {
             .then(communes => this.setState({ communes: communes}))
             .catch(err => console.log(err));
         }
-        
+        if (event.target.name === "hide_situation_p"){
+           if( event.target.value === "autre"){
+                this.setState({hide_situation_p: false})
+                this.setState({situation_p: "autre"})
+           }else{
+            this.setState({hide_situation_p: true})
+            this.setState({situation_p: "chomeur"})
+           }
+            
+        }
     }
 
     onSubmitPerson = (event) => {
@@ -278,6 +292,23 @@ class Person extends React.Component {
                         name="num_i_n" 
                     />
                     
+                    <label >الوضعية المهنية</label><br />
+                    <select 
+                        className="form-control text-right" 
+                        onChange={this.onHandleChange} 
+                        id="hide_situation_p"
+                        defaultValue="non" name="hide_situation_p">
+                        <option name="situation_p" value="chomeur" >بطال</option>
+                        <option name="situation_p" value="autre">أخر</option>
+                    </select><br />
+                    <div hidden={this.state.hide_situation_p}>
+                        <label htmlFor="profession">المهنة</label><br />
+                        <input className="form-control text-right" onChange={this.onHandleChange} type="text" name="profession" /><br />
+                        <label htmlFor="salaire">الدخل</label><br />
+                        <input className="form-control text-right" onChange={this.onHandleChange} type="text" name="salaire" /><br />
+                    </div>
+                                
+
                     <label htmlFor="remark"> ملاحظات</label>
                     <input 
                         onChange={this.onHandleChange} 

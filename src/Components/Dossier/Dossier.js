@@ -255,6 +255,7 @@ class Dossier extends React.Component {
                         demande_type={false} 
                         title="الرجاء إدخال بيانات الزوج(ة)" 
                         hidden={this.state.hide_conj} 
+                        getUserid={this.props.getUserid}
                     />
                 </div>
             );
