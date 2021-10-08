@@ -46,7 +46,12 @@ class Person extends React.Component {
        if(this.props.demande_type){
            this.setState({type:  "dema"});
        }
-       else {this.setState({type:  "conj"})};
+       else {
+           const gender_conj = this.props.gender_conj
+           this.setState({type:  "conj"})
+           this.setState({stuation_f:  "m"})
+           this.setState({gender:  gender_conj})      
+        };
     }
 
     onHandleChange = (event) => {
@@ -84,10 +89,12 @@ class Person extends React.Component {
         })
         .then(response => response.json())
         .then(user => {
-            if(user.id){ 
-                this.props.history.push("/DisplayForm");
+            if(user.user_id){ 
+                if(!this.props.demande_type){this.props.setId_conjoin(user.person_id)}
+                else this.props.history.push("/DisplayForm");
             }
-        });
+        })
+        .catch(err => console.log(err));
        
 
     }
@@ -143,7 +150,7 @@ class Person extends React.Component {
                 </div> 
                 <div className= "row text-right">
                     <div className="col-sm order-sm-last">
-                        <div name="gender" onChange={this.onHandleChange} >
+                        <div hidden={!this.props.demande_type} name="gender" onChange={this.onHandleChange} >
                             <label >الجنس</label>
                             <br />
                             <input type="radio" id="male"  name="gender" value="m" />

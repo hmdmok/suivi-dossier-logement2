@@ -13,8 +13,10 @@ class Dossier extends React.Component {
             hide_saisi: true,
             hide_tutele: true,
             root: "new",
-            hide_conj: true,
+            hide_conj: true, 
             creator: "",
+            id_demandeur: "",
+            id_conjoin: "",
             date_depo: "",
             num_dos: "",
             num_enf: "",
@@ -23,11 +25,22 @@ class Dossier extends React.Component {
             stuation_s_andicap: false,
             stuation_d: "",
             numb_p: "0",
-            saisi_conj: "",
-            scan_dossier: "non"
+            saisi_info: "non",
+            saisi_conj: "neant",
+            scan_dossier: "non",
+            type: "",
+            gender_conj: ""
         }
     }
     
+    setId_conjoin = (id_p) => {
+        this.setState({ id_conjoin: id_p})
+        this.setState({saisi_conj: "oui"});
+        this.setState({type: this.state.type+"_2"});
+        this.setState({hide_conj: true});
+        console.log(this.state)
+    }
+
     componentDidMount(){
         const userID = this.props.getUserid();  
         this.setState({creator: userID,})
@@ -38,6 +51,10 @@ class Dossier extends React.Component {
          
     }
 
+    componentDidUpdate(){
+        console.log(this.state)
+    }
+
     onPersonSelected = (event) => {
         const person_id = event.target.className;
         fetch('http://localhost:3005/Person/'+person_id)
@@ -46,18 +63,26 @@ class Dossier extends React.Component {
         .then(() => {
             this.setState({hide_new: true });
             this.setState({hide_saisi: false});
+            this.setState({type: this.state.person.type});
+            this.setState({id_demandeur: this.state.person.id});
             if(this.state.person.stuation_f === "m") {
                 this.setState({hide_conj: false});
                 this.setState({saisi_conj: "non"});
             }
-            console.log(this.state.person)
+            if(this.state.person.gender === "m") {
+                this.setState({gender_conj: "f"});
+            }else{this.setState({gender_conj: "m"});}
+            console.log(this.state)
         })
         .catch(err => console.log(err));
     }
 
     onSubmitDossier = (event) => {
         event.preventDefault();
-        console.log(this.state)
+        this.setState({saisi_info: "oui"});
+        this.setState({type: this.state.type+"_1"});
+        this.setState({hide_dossier: true});
+      
     }
 
     onHandleChange = (event) => {
@@ -82,7 +107,6 @@ class Dossier extends React.Component {
             if (event.target.value === "oui") this.setState({hide_tutele: false})
             else this.setState({hide_tutele: true})
         }
-        console.log(this.state)
     }
 
     render(){
@@ -105,7 +129,7 @@ class Dossier extends React.Component {
                             </thead>
                             <tbody onClick={this.onPersonSelected}>
                                 {this.state.newpersons.map( (person, i) => (
-                                    <tr className={person.id} key={person.id+i}>
+                                    <tr className={person.id} key={person.id}>
                                         <th  className={person.id} scope="row">{person.id}</th>
                                         <td className={person.id}>{person.prenom}</td>
                                         <td className={person.id}>{person.nom}</td>
@@ -120,7 +144,7 @@ class Dossier extends React.Component {
                     </div>
                     
 
-                    <form onSubmit={this.onSubmitDossier} className="" hidden={this.state.hide_saisi}>
+                    <form onSubmit={this.onSubmitDossier} className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded" hidden={this.state.hide_saisi}>
                         <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
                         <h2 >{"السيد(ة): "+this.state.person.nom+" "+this.state.person.prenom}</h2><br/>
                         <div   hidden={this.state.hide_dossier} >
@@ -252,7 +276,10 @@ class Dossier extends React.Component {
 
                     </form>
                     <Person 
+                        {...this.props}
                         demande_type={false} 
+                        setId_conjoin={this.setId_conjoin}
+                        gender_conj={this.state.gender_conj }
                         title="الرجاء إدخال بيانات الزوج(ة)" 
                         hidden={this.state.hide_conj} 
                         getUserid={this.props.getUserid}
