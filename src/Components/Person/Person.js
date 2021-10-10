@@ -16,7 +16,7 @@ class Person extends React.Component {
             lieu_n_fr: '',
             wil_n: '',
             com_n: '',
-            prenom_p: '',
+            prenom_p: "chomeur",
             prenom_p_fr: '',
             prenom_m: '',
             prenom_m_fr: '',

@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.22.0",
     "bootstrap": "^4.6.0",
     "browserslist": "^4.17.0",
     "glob-parent": "^6.0.1",
@@ -45,5 +46,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  }, 
+  "proxy": "http://localhost:3005"
 }
