@@ -19,14 +19,12 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("nomDossier", nomDossier);
 
     try {
       const res = await axios.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify({ nomDossier: nomDossier }),
         onUploadProgress: (progressEvent) => {
           setUploadPercentage(
             parseInt(
@@ -35,9 +33,6 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
           );
         },
       });
-
-      // Clear percentage
-      setTimeout(() => setUploadPercentage(0), 10000);
 
       const { fileName, filePath } = res.data;
 
