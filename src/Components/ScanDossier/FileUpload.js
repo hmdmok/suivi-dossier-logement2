@@ -11,12 +11,23 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const onChange = (e) => {
-    setFile(e.target.files[0]);
-    setFilename(tosendFilename);
+    if (e.target.files[0].type === "image/jpeg") {
+      const myRenamedFile = new File([e.target.files[0]], tosendFilename, {
+        type: file.type,
+        lastModified: new Date(),
+      });
+      console.log(myRenamedFile);
+      setFile(myRenamedFile);
+      setFilename(tosendFilename);
+    } else {
+      setMessage("please chose a jpg picture");
+    }
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    
+    
     const formData = new FormData();
     formData.append("file", file);
 

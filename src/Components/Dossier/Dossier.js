@@ -121,32 +121,34 @@ class Dossier extends React.Component {
         // console.log(usertype);
         return (
           <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
-            <div hidden={this.state.hide_new}>
-              <h1 className="my-5">الرجاء إختيار الشخص المراد ادخال ملفه</h1>
-              <table className="table table-hover">
-                <thead className="thead-dark">
-                  <tr>
-                    <th scope="col">رقم</th>
-                    <th scope="col">الاسم</th>
-                    <th scope="col">اللقب</th>
-                    <th scope="col">تاريخ الميلاد</th>
-                  </tr>
-                </thead>
-                <tbody onClick={this.onPersonSelected}>
-                  {this.state.newpersons.map((person, i) => (
-                    <tr className={person.id} key={person.id}>
-                      <th className={person.id} scope="row">
-                        {person.id}
-                      </th>
-                      <td className={person.id}>{person.prenom}</td>
-                      <td className={person.id}>{person.nom}</td>
-                      <td className={person.id}>{person.date_n}</td>
+            {!this.state.hide_new ? (
+              <div>
+                <h1 className="my-5">الرجاء إختيار الشخص المراد ادخال ملفه</h1>
+                <table className="table table-hover">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">رقم</th>
+                      <th scope="col">الاسم</th>
+                      <th scope="col">اللقب</th>
+                      <th scope="col">تاريخ الميلاد</th>
                     </tr>
-                    // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody onClick={this.onPersonSelected}>
+                    {this.state.newpersons.map((person, i) => (
+                      <tr className={person.id} key={person.id}>
+                        <th className={person.id} scope="row">
+                          {person.id}
+                        </th>
+                        <td className={person.id}>{person.prenom}</td>
+                        <td className={person.id}>{person.nom}</td>
+                        <td className={person.id}>{person.date_n}</td>
+                      </tr>
+                      // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
 
             <form
               onSubmit={this.onSubmitDossier}
