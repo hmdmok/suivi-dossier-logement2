@@ -13,7 +13,7 @@ function ScanDossier(props) {
         <FileUpload
           titleFilename="الصورة الشمسية"
           tosendFilename={"photo" + props.id_demandeur + ".jpg"}
-          nomDossier={ props.id_demandeur}
+          nomDossier={props.id_demandeur}
         />
         <div className="custom-file">
           <input

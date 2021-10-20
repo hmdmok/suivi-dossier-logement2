@@ -11,6 +11,7 @@ import ProtectedRoute from "./Components/ProtectdRoute/ProtectedRoute";
 import Utilisateur from "./Components/Utilisateur/Utilisateur";
 import Contact from "./Components/Contact/Contact";
 import Person from "./Components/Person/Person";
+import ScanDossier from "./Components/ScanDossier/ScanDossier";
 
 class App extends Component {
   constructor() {
@@ -129,6 +130,20 @@ class App extends Component {
                 setUsertype={this.setUsertype}
               />
               {/* <Demandeur onInputChange={this.onInputChange}/> */}
+              <ProtectedRoute
+                path="/Conjoin"
+                getUserid={this.getUserid}
+                component={Person}
+                type={false}
+                demande_type={false}
+                title="الرجاء إدخال بيانات زوج(ة) طالب(ة) السكن"
+                getUsername={this.getUsername}
+                getAuthent={this.getAuthent}
+                usertype={this.state.user_type}
+                loadUser={this.loadUser}
+                setAuthent={this.setAuthent}
+                setUsertype={this.setUsertype}
+              />
 
               {/* <Route path="/Dossier" component={Dossier} /> */}
               <ProtectedRoute
@@ -140,7 +155,14 @@ class App extends Component {
                 getUserid={this.getUserid}
               />
               {/* <Dossier /> */}
-
+              <ProtectedRoute
+                path="/ScanDossier"
+                component={ScanDossier}
+                getUsername={this.getUsername}
+                getAuthent={this.getAuthent}
+                usertype={this.state.user_type}
+                getUserid={this.getUserid}
+              />
               <ProtectedRoute
                 path="/Utilisateur"
                 getUsername={this.getUsername}

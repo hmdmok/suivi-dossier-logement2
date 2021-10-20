@@ -1,7 +1,6 @@
 import React from "react";
-import { withRouter, Redirect } from "react-router-dom";
-import Person from "../Person/Person";
-import ScanDossier from "../ScanDossier/ScanDossier";
+import { Redirect } from "react-router-dom";
+
 
 class Dossier extends React.Component {
   constructor(props) {
@@ -19,20 +18,21 @@ class Dossier extends React.Component {
       hide_conj: true,
       creator: "",
       id_demandeur: "",
-      id_conjoin: "",
+      id_conjoin: 0,
       date_depo: "",
       num_dos: "",
-      num_enf: "",
+      num_enf: 0,
       stuation_s_neant: true,
       stuation_s_avec_d: false,
       stuation_s_andicap: false,
       stuation_d: "",
-      numb_p: "0",
+      numb_p: 0,
       saisi_info: "non",
       saisi_conj: "neant",
       scan_dossier: "non",
       type: "",
       gender_conj: "",
+      remark: ""
     };
   }
 
@@ -44,12 +44,16 @@ class Dossier extends React.Component {
   };
 
   componentDidMount() {
-    const userID = this.props.getUserid();
-    this.setState({ creator: userID });
-    fetch("http://localhost:3005/Person")
-      .then((response) => response.json())
-      .then((data) => this.setState({ newpersons: data }))
-      .catch((err) => console.log(err));
+    if (this.state.creator === "") {
+      const userID = this.props.getUserid();
+      this.setState({ creator: userID });
+    }
+    if (this.state.id_demandeur === "") {
+      fetch("http://localhost:3005/Person")
+        .then((response) => response.json())
+        .then((data) => this.setState({ newpersons: data }))
+        .catch((err) => console.log(err));
+    }
   }
 
   // componentDidUpdate(){
@@ -88,7 +92,19 @@ class Dossier extends React.Component {
     event.preventDefault();
     this.setState({ saisi_info: "oui" });
     this.setState({ type: this.state.type + "_1" });
-    this.setState({ hide_dossier: true });
+    console.log(this.state);
+    fetch("http://localhost:3005/Dossier", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(this.state),
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.dossier_id) {
+         this.props.history.push("/DisplayForm");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   onHandleChange = (event) => {
@@ -116,40 +132,40 @@ class Dossier extends React.Component {
 
   render() {
     const { usertype } = this.props;
-    if (this.state.root === "new")
-      if (usertype !== "") {
-        // console.log(usertype);
-        return (
-          <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
-            {!this.state.hide_new ? (
-              <div>
-                <h1 className="my-5">الرجاء إختيار الشخص المراد ادخال ملفه</h1>
-                <table className="table table-hover">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">رقم</th>
-                      <th scope="col">الاسم</th>
-                      <th scope="col">اللقب</th>
-                      <th scope="col">تاريخ الميلاد</th>
+    if (usertype !== "") {
+      // console.log(usertype);
+      return (
+        <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
+          {!this.state.hide_new ? (
+            <div>
+              <h1 className="my-5">الرجاء إختيار الشخص المراد ادخال ملفه</h1>
+              <table className="table table-hover">
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">رقم</th>
+                    <th scope="col">الاسم</th>
+                    <th scope="col">اللقب</th>
+                    <th scope="col">تاريخ الميلاد</th>
+                  </tr>
+                </thead>
+                <tbody onClick={this.onPersonSelected}>
+                  {this.state.newpersons.map((person, i) => (
+                    <tr className={person.id} key={person.id}>
+                      <th className={person.id} scope="row">
+                        {person.id}
+                      </th>
+                      <td className={person.id}>{person.prenom}</td>
+                      <td className={person.id}>{person.nom}</td>
+                      <td className={person.id}>{person.date_n}</td>
                     </tr>
-                  </thead>
-                  <tbody onClick={this.onPersonSelected}>
-                    {this.state.newpersons.map((person, i) => (
-                      <tr className={person.id} key={person.id}>
-                        <th className={person.id} scope="row">
-                          {person.id}
-                        </th>
-                        <td className={person.id}>{person.prenom}</td>
-                        <td className={person.id}>{person.nom}</td>
-                        <td className={person.id}>{person.date_n}</td>
-                      </tr>
-                      // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : null}
+                    // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
 
+          {!this.state.hide_saisi ? (
             <form
               onSubmit={this.onSubmitDossier}
               className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded"
@@ -173,6 +189,7 @@ class Dossier extends React.Component {
                       name="date_depo"
                       className="form-control text-right"
                       onChange={this.onHandleChange}
+                      required
                     />
                     <br />
 
@@ -183,6 +200,7 @@ class Dossier extends React.Component {
                       name="num_dos"
                       className="form-control text-right"
                       onChange={this.onHandleChange}
+                      required
                     />
                     <br />
 
@@ -195,6 +213,7 @@ class Dossier extends React.Component {
                       name="stuation_d"
                       value="garage"
                       onChange={this.onHandleChange}
+
                     />
                     <label className="form-control text-right" htmlFor="garage">
                       محل غير مخصص للسكن{" "}
@@ -283,8 +302,7 @@ class Dossier extends React.Component {
                       className="form-control text-right"
                       htmlFor="stuation_s_neant"
                     >
-                      {" "}
-                      لاشيء{" "}
+                     لاشيء
                     </label>
                     <br />
 
@@ -369,30 +387,15 @@ class Dossier extends React.Component {
                 </div>
               </div>
             </form>
-            <Person
-              {...this.props}
-              demande_type={false}
-              setId_conjoin={this.setId_conjoin}
-              gender_conj={this.state.gender_conj}
-              title="الرجاء إدخال بيانات الزوج(ة)"
-              hidden={this.state.hide_conj}
-              getUserid={this.props.getUserid}
-            />
+          ) : null}
 
-            <ScanDossier
-              {...this.props}
-              hidden={this.state.hide_scan}
-              getUserid={this.props.getUserid}
-              hide_scan_situation_p={this.state.hide_scan_situation_p}
-              id_demandeur={this.state.id_demandeur}
-            />
-          </div>
-        );
-      } else {
-        // console.log(usertype);
-        return <Redirect to="/Login" />;
-      }
+        </div>
+      );
+    } else {
+      // console.log(usertype);
+      return <Redirect to="/Login" />;
+    }
   }
 }
 
-export default withRouter(Dossier);
+export default Dossier;

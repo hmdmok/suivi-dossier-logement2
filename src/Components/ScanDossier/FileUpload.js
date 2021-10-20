@@ -1,16 +1,18 @@
 import React, { Fragment, useState } from "react";
 import Message from "./Message";
 import Progress from "./Progress";
-import axios from "axios";
 
-const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
+const FileUpload = ({ titleFilename, tosendFilename }) => {
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState(titleFilename);
   const [uploadedFile, setUploadedFile] = useState({});
   const [message, setMessage] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [uploadDone, setuploadDone] = useState(false);
 
   const onChange = (e) => {
+    setUploadPercentage(0);
+    setUploadedFile({});
     if (e.target.files[0].type === "image/jpeg") {
       const myRenamedFile = new File([e.target.files[0]], tosendFilename, {
         type: file.type,
@@ -26,16 +28,14 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    
-    
+
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      const res = await axios.post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      fetch("http://localhost:3005/upload", {
+        method: "post",
+        body: formData,
         onUploadProgress: (progressEvent) => {
           setUploadPercentage(
             parseInt(
@@ -43,13 +43,17 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
             )
           );
         },
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const { fileName, filePath } = data;
 
-      const { fileName, filePath } = res.data;
-
-      setUploadedFile({ fileName, filePath });
-
-      setMessage("File Uploaded");
+          setUploadedFile({ fileName, filePath });
+          console.log(fileName + filePath);
+          setMessage("File Uploaded");
+          setuploadDone(true);
+        })
+        .catch((err) => console.log(err));
     } catch (err) {
       if (err.response.status === 500) {
         setMessage("There was a problem with the server");
@@ -63,7 +67,7 @@ const FileUpload = ({ titleFilename, tosendFilename, nomDossier }) => {
   return (
     <Fragment>
       {message ? <Message msg={message} /> : null}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} hidden={uploadDone}>
         <div className="custom-file mb-4">
           <input
             type="file"
