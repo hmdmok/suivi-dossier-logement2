@@ -12,6 +12,7 @@ import Utilisateur from "./Components/Utilisateur/Utilisateur";
 import Contact from "./Components/Contact/Contact";
 import Person from "./Components/Person/Person";
 import ScanDossier from "./Components/ScanDossier/ScanDossier";
+import SaisiConjoin from "./Components/SaisiConjoin/SaisiConjoin";
 
 class App extends Component {
   constructor() {
@@ -133,10 +134,7 @@ class App extends Component {
               <ProtectedRoute
                 path="/Conjoin"
                 getUserid={this.getUserid}
-                component={Person}
-                type={false}
-                demande_type={false}
-                title="الرجاء إدخال بيانات زوج(ة) طالب(ة) السكن"
+                component={SaisiConjoin}
                 getUsername={this.getUsername}
                 getAuthent={this.getAuthent}
                 usertype={this.state.user_type}

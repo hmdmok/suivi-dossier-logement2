@@ -75,7 +75,7 @@ class Person extends React.Component {
 
   onSubmitPerson = (event) => {
     event.preventDefault();
-
+    const { type, id_dossier } = this.props;
     fetch("http://localhost:3005/Person", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -85,7 +85,22 @@ class Person extends React.Component {
       .then((user) => {
         if (user.user_id) {
           if (!this.props.demande_type) {
-            this.props.setId_conjoin(user.person_id);
+            const saisi_conj = "oui";
+            fetch("http://localhost:3005/Dossier/Conjoin", {
+              method: "put",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                id_dossier,
+                creator: user.user_id,
+                id_conjoin: user.person_id,
+                type: type + "_2",
+                saisi_conj,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.user_id) this.props.history.push("/DisplayForm");
+              });
           } else this.props.history.push("/DisplayForm");
         }
       })
@@ -94,10 +109,7 @@ class Person extends React.Component {
 
   render() {
     return (
-      <div
-        className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded"
-        hidden={this.props.hidden}
-      >
+      <div className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded">
         <h1>{this.props.title}</h1>
 
         <form onSubmit={this.onSubmitPerson}>
