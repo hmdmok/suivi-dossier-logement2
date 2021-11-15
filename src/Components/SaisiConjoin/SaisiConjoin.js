@@ -9,10 +9,10 @@ function SaisiConjoin(props) {
   const [hide_conj, sethide_conj] = useState(true);
   const [gender_conj, setgender_conj] = useState("");
   const [type, settype] = useState("");
-
+  const {getUserid} = props;
   useEffect(() => {
     if (creator === "") {
-      const userID = props.getUserid();
+      const userID = getUserid();
       setcreator(userID);
     }
     if (dossierNoConjoin === []) {

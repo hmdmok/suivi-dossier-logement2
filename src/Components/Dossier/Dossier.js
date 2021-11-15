@@ -5,7 +5,7 @@ function Dossier(props) {
   const [newpersons, setnewpersons] = useState([]);
   const [person, setperson] = useState({ id: 0, type: "" });
   const [hide_new, sethide_new] = useState(false);
-  const [hide_dossier, sethide_dossier] = useState(false);
+  // const [hide_dossier, sethide_dossier] = useState(false);
   const [hide_saisi, sethide_saisi] = useState(true);
   const [hide_tutele, sethide_tutele] = useState(true);
   const [hide_scan, sethide_scan] = useState(true);
@@ -59,12 +59,6 @@ function Dossier(props) {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(id_demandeur);
-    console.log(type);
-    console.log(person);
-  }, [person, id_demandeur]);
-
   const onPersonSelected = (event) => {
     const person_id = event.target.className;
     fetch("http://localhost:3005/Person/" + person_id)
@@ -74,7 +68,8 @@ function Dossier(props) {
         sethide_new(true);
         sethide_saisi(false);
         sethide_scan(false);
-        settype(data.type);
+        settype(data.type + "_1");
+        setscan_dossier("non");
         setid_demandeur(data.id);
         if (data.stuation_f === "m") {
           setsaisi_conj("non");
@@ -114,6 +109,7 @@ function Dossier(props) {
         type,
         gender_conj,
         saisi_conj,
+        scan_dossier,
       }),
     })
       .then((response) => response.json())
@@ -192,12 +188,11 @@ function Dossier(props) {
           <form
             onSubmit={onSubmitDossier}
             className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded"
-            hidden={hide_saisi}
           >
             <h1>الرجاء إدخال بيانات ملف طلب السكن</h1>
             <h2>{"السيد(ة): " + person.nom + " " + person.prenom}</h2>
             <br />
-            <div hidden={hide_dossier}>
+            <div>
               <div className="row text-right">
                 <div className="col-sm order-sm-last">
                   <label htmlFor="date_depo"> تاريخ الإيداع </label>
