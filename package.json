@@ -21,7 +21,8 @@
     "ssri": "^8.0.1",
     "tachyons": "^4.12.0",
     "typescript": "^4.4.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "xlsx": "^0.17.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }, 
+  },
   "proxy": "http://localhost:3005"
 }

@@ -18,7 +18,6 @@ const FileUpload = ({ titleFilename, tosendFilename }) => {
         type: file.type,
         lastModified: new Date(),
       });
-      console.log(myRenamedFile);
       setFile(myRenamedFile);
       setFilename(tosendFilename);
     } else {

@@ -13,6 +13,7 @@ import Contact from "./Components/Contact/Contact";
 import Person from "./Components/Person/Person";
 import ScanDossier from "./Components/ScanDossier/ScanDossier";
 import SaisiConjoin from "./Components/SaisiConjoin/SaisiConjoin";
+import OldRegister from "./Components/OldRegister/OldRegister";
 
 class App extends Component {
   constructor() {
@@ -172,6 +173,16 @@ class App extends Component {
                 setUsertype={this.setUsertype}
               />
               {/* <Utilisateur /> */}
+              <ProtectedRoute
+                path="/OldRegister"
+                getUsername={this.getUsername}
+                component={OldRegister}
+                getAuthent={this.getAuthent}
+                usertype={this.state.user_type}
+                loadUser={this.loadUser}
+                setAuthent={this.setAuthent}
+                setUsertype={this.setUsertype}
+              />
 
               <Route path="/Contact" component={Contact} />
             </Switch>
