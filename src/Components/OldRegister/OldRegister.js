@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import XLSX from "xlsx";
 
 function OldRegister() {
-    const [tableOutput, setTableOutput] = useState('')
+  const [tableOutput, setTableOutput] = useState("");
   const onChange = (event) => {
     const excel_file = event.target.files[0];
     var reader = new FileReader();
@@ -16,14 +16,21 @@ function OldRegister() {
         { header: 1 }
       );
       if (sheet_data.length > 0) {
-        var table_output =
-          '<table class="table table-striped table-bordered">';
+        var table_output = '<table class="table table-striped table-bordered">';
         for (var row = 0; row < sheet_data.length; row++) {
-          table_output += "<tr>";
-          for (var cell = 0; cell < sheet_data[row].length; cell++) {
-              table_output += '<td>'+sheet_data[row][cell]+'</td>';
+          if (row === 0) {
+            table_output += "<tr>";
+            for (var cell = 0; cell < sheet_data[row].length; cell++) {
+              table_output += "<th>" + sheet_data[row][cell] + "</th>";
+            }
+            table_output += "</tr>";
+          } else {
+            table_output += "<tr>";
+            for (var cell = 0; cell < sheet_data[row].length; cell++) {
+              table_output += "<td>" + sheet_data[row][cell] + "</td>";
+            }
+            table_output += "</tr>";
           }
-          table_output += "</tr>";
         }
         table_output += "</table>";
 
@@ -42,7 +49,10 @@ function OldRegister() {
           <input type="file" id="excel_file" onChange={onChange} />
         </div>
       </div>
-      <div className="content" dangerouslySetInnerHTML={{__html: tableOutput}}></div>
+      <div
+        className="content"
+        dangerouslySetInnerHTML={{ __html: tableOutput }}
+      ></div>
     </div>
   );
 }

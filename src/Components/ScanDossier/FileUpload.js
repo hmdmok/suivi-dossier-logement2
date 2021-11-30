@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import Message from "./Message";
 import Progress from "./Progress";
 
-const FileUpload = ({ titleFilename, tosendFilename }) => {
+const FileUpload = ({ titleFilename, tosendFilename, Num_Dossier }) => {
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState(titleFilename);
   const [uploadedFile, setUploadedFile] = useState({});
@@ -32,7 +32,7 @@ const FileUpload = ({ titleFilename, tosendFilename }) => {
     formData.append("file", file);
 
     try {
-      fetch("http://localhost:3005/upload", {
+      fetch("http://localhost:3005/upload/" + Num_Dossier, {
         method: "post",
         body: formData,
         onUploadProgress: (progressEvent) => {
@@ -83,7 +83,7 @@ const FileUpload = ({ titleFilename, tosendFilename }) => {
 
         <input
           type="submit"
-          value="Upload"
+          value="حفظ"
           className="btn btn-primary btn-block mt-4"
         />
       </form>

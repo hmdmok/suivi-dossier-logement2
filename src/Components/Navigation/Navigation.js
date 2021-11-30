@@ -96,13 +96,7 @@ const Navigation = () => {
           <Nav.Link href="#help">مساعدة</Nav.Link>
         </Nav>
         <Form>
-          <Button
-            onClick={() => {
-              history.push("/Login");
-            }}
-            className="ml-1"
-            variant="outline-success"
-          >
+          <Button href="/" className="ml-1" variant="outline-success">
             تسجيل خروج
           </Button>
           <Button

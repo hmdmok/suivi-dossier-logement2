@@ -81,7 +81,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Navigation />
+            {this.state.authent ? <Navigation /> : null}
             <Switch>
               <Route path="/" exact component={Home} />
               {/* <Home /> */}
