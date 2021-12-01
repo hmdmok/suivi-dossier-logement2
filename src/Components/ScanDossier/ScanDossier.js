@@ -42,7 +42,14 @@ function ScanDossier(props) {
     setdossier(newdossier[dossier_id]);
     setHide_new(true);
     setHide_scan(false);
-    
+    console.log(dossier)
+    fetch("http://localhost:3005/ScanDossier/" + dossier_id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setscandossier(data);
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div
@@ -84,16 +91,20 @@ function ScanDossier(props) {
           <h1 className="my-3">الرجاء مسح ملف </h1>
           <h2>{"السيد(ة): " + dossier.nom + " " + dossier.prenom}</h2>
           <br />
-          <FileUpload
-            Num_Dossier={dossier.num_dos}
-            titleFilename="الصورة الشمسية"
-            tosendFilename={"photo_" + dossier.id_demandeur + ".jpg"}
-          />
-          <FileUpload
-            Num_Dossier={dossier.num_dos}
-            titleFilename="بطاقة التعريف"
-            tosendFilename={"CIN_" + dossier.id_demandeur + ".jpg"}
-          />
+          {scandossier.photo_link === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.num_dos}
+              titleFilename="الصورة الشمسية"
+              tosendFilename={"photo_" + dossier.id_demandeur + ".jpg"}
+            />
+          ) : null}
+          {scandossier.CIN_link === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.num_dos}
+              titleFilename="بطاقة التعريف"
+              tosendFilename={"CIN_" + dossier.id_demandeur + ".jpg"}
+            />
+          ) : null}
 
           <div className="custom-file">
             <input
