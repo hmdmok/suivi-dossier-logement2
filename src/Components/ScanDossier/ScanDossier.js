@@ -22,11 +22,11 @@ function ScanDossier(props) {
     id_user: "",
     fiche_paie_3_link: "",
     rest_dossier: "",
+    remark: "",
   });
-
+  const userID = props.getUserid();
   useEffect(() => {
     if (creator === 0) {
-      const userID = props.getUserid();
       setcreator(userID);
     }
     if (id_dossier === 0) {
@@ -37,16 +37,39 @@ function ScanDossier(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (scandossier.id === "") {
+      setscandossier({
+        ...scandossier,
+        id_dossier: id_dossier,
+        id_user: userID,
+        remark: "ADD new ScanDossier",
+      });}
+    }, [dossier]);
+    useEffect(() => {
+      fetch("http://localhost:3005/ScanDossier/Add", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(scandossier),
+      })
+        .then((response) => response.json())
+        .then((scaned) => {
+          if (scaned.id) {
+            setscandossier(scaned);
+          }
+        })
+        .catch((err) => console.log(err));
+    
+  }, [id_dossier]);
+
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
     setdossier(newdossier[dossier_id]);
     setHide_new(true);
     setHide_scan(false);
-    console.log(dossier)
     fetch("http://localhost:3005/ScanDossier/" + dossier_id)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setscandossier(data);
       })
       .catch((err) => console.log(err));
@@ -58,8 +81,8 @@ function ScanDossier(props) {
     >
       {!hide_new ? (
         <div>
-          <h1 className="my-5">الرجاء إختيار ملف الشخص المراد مسحه</h1>
-          <table className="table table-hover">
+          <h1 className="my-5">الرجاء إختيار ملف الشخص المراد مسح ملفه</h1>
+          <table className="table table-hover table-bordered">
             <thead className="thead-dark">
               <tr>
                 <th scope="col">رقم الملف</th>
@@ -97,7 +120,14 @@ function ScanDossier(props) {
               titleFilename="الصورة الشمسية"
               tosendFilename={"photo_" + dossier.id_demandeur + ".jpg"}
             />
-          ) : null}
+          ) : (
+            <img
+              src={scandossier.photo_link}
+              alt="Person"
+              height="150"
+              width="150"
+            />
+          )}
           {scandossier.CIN_link === "" ? (
             <FileUpload
               Num_Dossier={dossier.num_dos}
