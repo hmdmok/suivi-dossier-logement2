@@ -2,7 +2,13 @@ import React, { Fragment, useState } from "react";
 import Message from "./Message";
 import Progress from "./Progress";
 
-const FileUpload = ({ titleFilename, tosendFilename, Num_Dossier }) => {
+const FileUpload = ({
+  titleFilename,
+  tosendFilename,
+  Num_Dossier,
+  setLink,
+  scanelement,
+}) => {
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState(titleFilename);
   const [uploadedFile, setUploadedFile] = useState({});
@@ -48,9 +54,9 @@ const FileUpload = ({ titleFilename, tosendFilename, Num_Dossier }) => {
           const { fileName, filePath } = data;
 
           setUploadedFile({ fileName, filePath });
-          console.log(fileName + filePath);
           setMessage("File Uploaded");
           setuploadDone(true);
+          setLink(filePath,scanelement);
         })
         .catch((err) => console.log(err));
     } catch (err) {

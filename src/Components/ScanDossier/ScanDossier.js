@@ -2,14 +2,7 @@ import React, { useState, useEffect } from "react";
 import FileUpload from "./FileUpload";
 
 function ScanDossier(props) {
-  const [hide_new, setHide_new] = useState(false);
-  const [hide_scan, setHide_scan] = useState(true);
-  const [newdossier, setNewdossier] = useState([]);
-  const [creator, setcreator] = useState(0);
-  const [id_dossier, setid_dossier] = useState(0);
-  const [dossier, setdossier] = useState({});
-  const [persone, setpersone] = useState({});
-  const [scandossier, setscandossier] = useState({
+  const initScandossier = {
     id: "",
     id_dossier: "",
     photo_link: "",
@@ -23,8 +16,21 @@ function ScanDossier(props) {
     fiche_paie_3_link: "",
     rest_dossier: "",
     remark: "",
-  });
-  const userID = props.getUserid();
+  };
+  const [hide_scan_situation_p, sethide_scan_situation_p] = useState(false);
+  const { getUserid, hidden } = props;
+  const [hide_new, setHide_new] = useState(false);
+  const [hide_scan, setHide_scan] = useState(true);
+  const [newdossier, setNewdossier] = useState([]);
+  const [creator, setcreator] = useState(0);
+  const [id_dossier, setid_dossier] = useState(0);
+  const [dossier, setdossier] = useState({});
+  const [scandossier, setscandossier] = useState(initScandossier);
+  const [linkScan, setlinkScan] = useState("");
+  const [element, setelement] = useState("");
+
+  const userID = getUserid();
+
   useEffect(() => {
     if (creator === 0) {
       setcreator(userID);
@@ -38,15 +44,20 @@ function ScanDossier(props) {
   }, []);
 
   useEffect(() => {
-    if (scandossier.id === "") {
+    // console.log(scandossier);
+    // console.log(dossier);
+    // console.log(linkScan);
+    if (!(id_dossier === 0) && scandossier === "no scan_dossier found") {
       setscandossier({
-        ...scandossier,
-        id_dossier: id_dossier,
+        ...initScandossier,
+        id_dossier: dossier.id_dossier,
         id_user: userID,
         remark: "ADD new ScanDossier",
-      });}
-    }, [dossier]);
-    useEffect(() => {
+      });
+    }
+  }, [dossier, scandossier]);
+  useEffect(() => {
+    if (scandossier.remark === "ADD new ScanDossier") {
       fetch("http://localhost:3005/ScanDossier/Add", {
         method: "post",
         headers: { "content-type": "application/json" },
@@ -59,25 +70,93 @@ function ScanDossier(props) {
           }
         })
         .catch((err) => console.log(err));
-    
-  }, [id_dossier]);
-
+    } else if (scandossier.remark === "UPDATE ScanDossier") {
+      fetch("http://localhost:3005/ScanDossier/UpdateNew", {
+        method: "put",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(scandossier),
+      })
+        .then((response) => response.json())
+        .then((scaned) => {
+          if (scaned.id) {
+            setscandossier(scaned);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+    if (
+      !( scandossier === "no scan_dossier found") &&
+      !(
+        scandossier.photo_link === "" ||
+        scandossier.CIN_link === "" ||
+        scandossier.cert_nes_link === "" ||
+        scandossier.cert_res_link === "" ||
+        scandossier.cert_negatif_link === "" ||
+        (scandossier.cert_chomage_link === "" &&
+          (scandossier.cert_travail_link === "" ||
+            scandossier.fiche_paie_3_link === "")) ||
+        scandossier.rest_dossier === ""
+      ) &&
+      dossier.scan_dossier === "non"
+    ) {
+      // console.log(scandossier);
+      setdossier({
+        ...dossier,
+        scan_dossier: "oui",
+      });
+      fetch("http://localhost:3005/Dossier/ScanStatus", {
+        method: "put",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          id_dossier,
+          creator: userID,
+          scan_dossier: "oui",
+        }),
+      })
+        .then((response) => response.json())
+        .then((user) => {
+          props.history.push("/DisplayForm");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [scandossier]);
+  const setlink = (link, elem) => {
+    setelement(elem);
+    setlinkScan(link);
+  };
+  useEffect(() => {
+    if (!(scandossier.id_dossier === "")) toScan(element);
+  }, [linkScan]);
+  const toScan = (elem) => {
+    if (!(elem === ""))
+      setscandossier({
+        ...scandossier,
+        [elem]: linkScan,
+        remark: "UPDATE ScanDossier",
+      });
+  };
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
-    setdossier(newdossier[dossier_id]);
-    setHide_new(true);
-    setHide_scan(false);
-    fetch("http://localhost:3005/ScanDossier/" + dossier_id)
+    fetch(
+      "http://localhost:3005/ScanDossier/" + newdossier[dossier_id].id_dossier
+    )
       .then((response) => response.json())
       .then((data) => {
         setscandossier(data);
       })
       .catch((err) => console.log(err));
+    setdossier(newdossier[dossier_id]);
+    setHide_new(true);
+    setHide_scan(false);
+    setid_dossier(newdossier[dossier_id].id_dossier);
+    if (newdossier[dossier_id].situation_p === "autre") {
+      sethide_scan_situation_p(true);
+    }
   };
   return (
     <div
-      className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded"
-      hidden={props.hidden}
+      className="container form-signin border shadow my-5 bg-light bg-gradient rounded"
+      hidden={hidden}
     >
       {!hide_new ? (
         <div>
@@ -116,103 +195,142 @@ function ScanDossier(props) {
           <br />
           {scandossier.photo_link === "" ? (
             <FileUpload
-              Num_Dossier={dossier.num_dos}
+              Num_Dossier={dossier.id_dossier}
               titleFilename="الصورة الشمسية"
               tosendFilename={"photo_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"photo_link"}
             />
           ) : (
-            <img
-              src={scandossier.photo_link}
-              alt="Person"
-              height="150"
-              width="150"
-            />
+            <img src={scandossier.photo_link} alt="Person" width="150" />
           )}
           {scandossier.CIN_link === "" ? (
             <FileUpload
-              Num_Dossier={dossier.num_dos}
+              Num_Dossier={dossier.id_dossier}
               titleFilename="بطاقة التعريف"
               tosendFilename={"CIN_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"CIN_link"}
             />
-          ) : null}
+          ) : (
+            <img src={scandossier.CIN_link} alt="Cin" width="150" />
+          )}
 
-          <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="certif_nais"
-              name="certif_nais"
+          {scandossier.cert_nes_link === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.id_dossier}
+              titleFilename="شهادة الميلاد"
+              tosendFilename={"certif_nais_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"cert_nes_link"}
             />
-            <label className="custom-file-label" htmlFor="certif_nais">
-              شهادة الميلاد
-            </label>
-          </div>
-          <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="residance"
-              name="residance"
+          ) : (
+            <img
+              src={scandossier.cert_nes_link}
+              alt="certif_nais"
+              width="150"
             />
-            <label className="custom-file-label" htmlFor="residance">
-              شهادة الاقامة
-            </label>
-          </div>
-          <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="prop_negatif"
-              name="prop_negatif"
+          )}
+
+          {scandossier.cert_res_link === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.id_dossier}
+              titleFilename="شهادة الاقامة"
+              tosendFilename={"certif_resi_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"cert_res_link"}
             />
-            <label className="custom-file-label" htmlFor="prop_negatif">
-              شهادة السلبية
-            </label>
-          </div>
-          <div className="custom-file" hidden={props.hide_scan_situation_p}>
-            <input
-              type="file"
-              className="custom-file-input"
-              id="certif_chomage"
-              name="certif_chomage"
+          ) : (
+            <img
+              src={scandossier.cert_res_link}
+              alt="certif_resi"
+              width="150"
             />
-            <label className="custom-file-label" htmlFor="certif_chomage">
-              شهادة البطالة
-            </label>
-          </div>
-          <div className="custom-file" hidden={!props.hide_scan_situation_p}>
-            <input
-              type="file"
-              className="custom-file-input"
-              id="certif_travail"
-              name="certif_travail"
+          )}
+
+          {scandossier.cert_negatif_link === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.id_dossier}
+              titleFilename="شهادة السلبية"
+              tosendFilename={"prop_negatif_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"cert_negatif_link"}
             />
-            <label className="custom-file-label" htmlFor="certif_travail">
-              شهادة العمل
-            </label>
-          </div>
-          <div className="custom-file" hidden={!props.hide_scan_situation_p}>
-            <input
-              type="file"
-              className="custom-file-input"
-              id="fiche_paie"
-              name="fiche_paie"
+          ) : (
+            <img
+              src={scandossier.cert_negatif_link}
+              alt="prop_negatif"
+              width="150"
             />
-            <label className="custom-file-label" htmlFor="fiche_paie">
-              بيان الدخل
-            </label>
+          )}
+
+          <div className="custom-file" hidden={hide_scan_situation_p}>
+            {scandossier.cert_chomage_link === "" ? (
+              <FileUpload
+                Num_Dossier={dossier.id_dossier}
+                titleFilename="شهادة البطالة"
+                tosendFilename={
+                  "certif_chomage_" + dossier.id_demandeur + ".jpg"
+                }
+                setLink={setlink}
+                scanelement={"cert_chomage_link"}
+              />
+            ) : (
+              <img
+                src={scandossier.cert_chomage_link}
+                alt="certif_chomage"
+                width="150"
+              />
+            )}
           </div>
-          <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="autre"
-              name="autre"
+
+          <div className="custom-file" hidden={!hide_scan_situation_p}>
+            {scandossier.cert_travail_link === "" ? (
+              <FileUpload
+                Num_Dossier={dossier.id_dossier}
+                titleFilename="شهادة العمل"
+                tosendFilename={
+                  "certif_travail_" + dossier.id_demandeur + ".jpg"
+                }
+                setLink={setlink}
+                scanelement={"cert_travail_link"}
+              />
+            ) : (
+              <img
+                src={scandossier.cert_travail_link}
+                alt="certif_travail"
+                width="150"
+              />
+            )}
+
+            {scandossier.fiche_paie_3_link === "" ? (
+              <FileUpload
+                Num_Dossier={dossier.id_dossier}
+                titleFilename="بيان الدخل"
+                tosendFilename={"fiche_paie_" + dossier.id_demandeur + ".jpg"}
+                setLink={setlink}
+                scanelement={"fiche_paie_3_link"}
+              />
+            ) : (
+              <img
+                src={scandossier.fiche_paie_3_link}
+                alt="fiche_paie"
+                width="150"
+              />
+            )}
+          </div>
+
+          {scandossier.rest_dossier === "" ? (
+            <FileUpload
+              Num_Dossier={dossier.id_dossier}
+              titleFilename="باقي الملف"
+              tosendFilename={"autre_" + dossier.id_demandeur + ".jpg"}
+              setLink={setlink}
+              scanelement={"rest_dossier"}
             />
-            <label className="custom-file-label" htmlFor="autre">
-              باقي الملف
-            </label>
-          </div>
+          ) : (
+            <img src={scandossier.rest_dossier} alt="autre" width="150" />
+          )}
         </div>
       ) : null}
     </div>

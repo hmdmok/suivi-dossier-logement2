@@ -8,8 +8,8 @@ function Dossier(props) {
   // const [hide_dossier, sethide_dossier] = useState(false);
   const [hide_saisi, sethide_saisi] = useState(true);
   const [hide_tutele, sethide_tutele] = useState(true);
-  const [hide_scan, sethide_scan] = useState(true);
-  const [hide_scan_situation_p, sethide_scan_situation_p] = useState(false);
+  // const [hide_scan, sethide_scan] = useState(true);
+  
   const [creator, setcreator] = useState(0);
   const [id_demandeur, setid_demandeur] = useState(0);
   const [id_conjoin, setid_conjoin] = useState(0);
@@ -21,7 +21,7 @@ function Dossier(props) {
   // const [stuation_s_andicap, setstuation_s_andicap] = useState(false);
   // const [stuation_d, setstuation_d] = useState("");
   // const [numb_p, setnumb_p] = useState(0);
-  const [saisi_info, setsaisi_info] = useState("non");
+  // const [saisi_info, setsaisi_info] = useState("non");
   const [saisi_conj, setsaisi_conj] = useState("neant");
   const [scan_dossier, setscan_dossier] = useState("non");
   const [type, settype] = useState("");
@@ -67,7 +67,7 @@ function Dossier(props) {
         setperson(data);
         sethide_new(true);
         sethide_saisi(false);
-        sethide_scan(false);
+        // sethide_scan(false);
         settype(data.type + "_1");
         setscan_dossier("non");
         setid_demandeur(data.id);
@@ -79,16 +79,14 @@ function Dossier(props) {
         } else {
           setgender_conj("m");
         }
-        if (data.situation_p === "autre") {
-          sethide_scan_situation_p(true);
-        }
+        
       })
       .catch((err) => console.log(err));
   };
 
   const onSubmitDossier = (event) => {
     event.preventDefault();
-    setsaisi_info("oui");
+    // setsaisi_info("oui");
     settype(type + "_1");
     fetch("http://localhost:3005/Dossier", {
       method: "post",
