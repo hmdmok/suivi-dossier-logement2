@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import Message from "./Message";
+import Message from "../Message/Message";
 import Progress from "./Progress";
 
 const FileUpload = ({
@@ -72,7 +72,7 @@ const FileUpload = ({
   return (
     <Fragment>
       {message ? <Message msg={message} /> : null}
-      <form onSubmit={onSubmit} hidden={uploadDone}>
+      <form className="my-5" onSubmit={onSubmit} hidden={uploadDone}>
         <div className="custom-file mb-4">
           <input
             type="file"
@@ -93,14 +93,14 @@ const FileUpload = ({
           className="btn btn-primary btn-block mt-4"
         />
       </form>
-      {uploadedFile ? (
+      {/* {uploadedFile ? (
         <div className="row mt-5">
           <div className="col-md-6 m-auto">
             <h3 className="text-center">{uploadedFile.fileName}</h3>
             <img style={{ width: "100%" }} src={uploadedFile.filePath} alt="" />
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </Fragment>
   );
 };

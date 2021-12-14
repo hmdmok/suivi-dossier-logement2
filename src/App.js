@@ -14,6 +14,7 @@ import Person from "./Components/Person/Person";
 import ScanDossier from "./Components/ScanDossier/ScanDossier";
 import SaisiConjoin from "./Components/SaisiConjoin/SaisiConjoin";
 import OldRegister from "./Components/OldRegister/OldRegister";
+import Demandeur from "./Components/Demandeur/Demandeur";
 
 class App extends Component {
   constructor() {

@@ -2,33 +2,38 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 function Dossier(props) {
-  const [newpersons, setnewpersons] = useState([]);
-  const [person, setperson] = useState({ id: 0, type: "" });
+  const [newDossiers, setnewDossiers] = useState([]);
+  const [person, setperson] = useState({
+    id: 0,
+    type: "",
+    prenom: "",
+    prenom_fr: "",
+    nom: "",
+    nom_fr: "",
+    gender: "",
+    num_act: "",
+    date_n: "",
+    lieu_n: "",
+    lieu_n_fr: "",
+    wil_n: 0,
+    com_n: 0,
+    prenom_p: "",
+    prenom_p_fr: "",
+    prenom_m: "",
+    prenom_m_fr: "",
+    nom_m: "",
+    nom_m_fr: "",
+    num_i_n: "",
+    stuation_f: "",
+    situation_p: "",
+    profession: "",
+    salaire: 0,
+    creator: 0,
+  });
   const [hide_new, sethide_new] = useState(false);
-  // const [hide_dossier, sethide_dossier] = useState(false);
   const [hide_saisi, sethide_saisi] = useState(true);
   const [hide_tutele, sethide_tutele] = useState(true);
-  // const [hide_scan, sethide_scan] = useState(true);
-  
-  const [creator, setcreator] = useState(0);
-  const [id_demandeur, setid_demandeur] = useState(0);
-  const [id_conjoin, setid_conjoin] = useState(0);
-  // const [date_depo, setdate_depo] = useState("");
-  // const [num_dos, setnum_dos] = useState("");
-  // const [num_enf, setnum_enf] = useState(0);
-  // const [stuation_s_neant, setstuation_s_neant] = useState(true);
-  // const [stuation_s_avec_d, setstuation_s_avec_d] = useState(false);
-  // const [stuation_s_andicap, setstuation_s_andicap] = useState(false);
-  // const [stuation_d, setstuation_d] = useState("");
-  // const [numb_p, setnumb_p] = useState(0);
-  // const [saisi_info, setsaisi_info] = useState("non");
-  const [saisi_conj, setsaisi_conj] = useState("neant");
-  const [scan_dossier, setscan_dossier] = useState("non");
-  const [type, settype] = useState("");
-  const [gender_conj, setgender_conj] = useState("");
-  // const [remark, setremark] = useState("");
-  const [id_scan_dossier, setid_scan_dossier] = useState(0);
-  const [dossierInputs, setdossierInputs] = useState({
+  const [dossier, setdossier] = useState({
     date_depo: "",
     num_dos: "",
     num_enf: 0,
@@ -38,81 +43,111 @@ function Dossier(props) {
     stuation_d: "",
     numb_p: 0,
     remark: "",
+    id_dossier: 0,
+    saisi_conj: "",
+    scan_dossier: "",
+    type: "",
+    gender_conj: "",
+    id_demandeur: 0,
+    id_user: 0,
+    id_conjoin: 0,
+    id_scan_dossier: 0,
   });
+  const [userID, setuserID] = useState(0);
+  const { getUserid } = props;
 
-  const setId_conjoin = (id_p) => {
-    setid_conjoin(id_p);
-    setsaisi_conj("oui");
-    settype(type + "_2");
-  };
+  // const setId_conjoin = (id_p) => {
+  //   setdossier({
+  //     ...dossier,
+  //     id_conjoin: id_p,
+  //     saisi_conj: "oui",
+  //     type: type + "_2",
+  //   });
+  // };
 
   useEffect(() => {
-    if (creator === 0) {
-      const userID = props.getUserid();
-      setcreator(userID);
+    setuserID(getUserid());
+    if (dossier.id_user === 0) {
+      setdossier({
+        ...dossier,
+        id_user: userID,
+      });
+      console.log("1");
     }
-    if (id_demandeur === 0) {
-      fetch("http://localhost:3005/Person")
+    if (dossier.id_demandeur === 0) {
+      fetch("http://localhost:3005/Dossier/NewDossiers")
         .then((response) => response.json())
-        .then((data) => setnewpersons(data))
+        .then((data) => setnewDossiers(data))
         .catch((err) => console.log(err));
     }
-  }, []);
+  });
 
-  const onPersonSelected = (event) => {
-    const person_id = event.target.className;
-    fetch("http://localhost:3005/Person/" + person_id)
+  useEffect(() => {
+    if (dossier.type === "dema") {
+      fetch("http://localhost:3005/Person/" + dossier.id_demandeur)
+        .then((response) => response.json())
+        .then((data) => {
+          setperson({ ...data, type: data.type + "_1" });
+          if (data.stuation_f === "m") {
+            setdossier({
+              ...dossier,
+              saisi_conj: "non",
+            });
+            console.log("2");
+          }
+          if (data.gender === "m") {
+            setdossier({
+              ...dossier,
+              gender_conj: "f",
+            });
+            console.log("3");
+          } else {
+            setdossier({
+              ...dossier,
+              gender_conj: "m",
+            });
+            console.log("4");
+          }
+        })
+        .then(() => {
+          setdossier({
+            ...dossier,
+            type: dossier.type + "_1",
+            scan_dossier: "non",
+            stuation_s_andicap: false,
+            stuation_s_avec_d: false,
+          });
+          console.log("5");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [dossier.id_dossier]);
+
+  const onDossierSelected = (event) => {
+    const dossier_id = event.target.className;
+    fetch("http://localhost:3005/Dossier/" + dossier_id)
       .then((response) => response.json())
       .then((data) => {
-        setperson(data);
+        setdossier(data);
+        console.log("6");
         sethide_new(true);
         sethide_saisi(false);
-        // sethide_scan(false);
-        settype(data.type + "_1");
-        setscan_dossier("non");
-        setid_demandeur(data.id);
-        if (data.stuation_f === "m") {
-          setsaisi_conj("non");
-        }
-        if (data.gender === "m") {
-          setgender_conj("f");
-        } else {
-          setgender_conj("m");
-        }
-        
       })
+
       .catch((err) => console.log(err));
   };
 
   const onSubmitDossier = (event) => {
     event.preventDefault();
-    // setsaisi_info("oui");
-    settype(type + "_1");
-    fetch("http://localhost:3005/Dossier", {
-      method: "post",
+
+    fetch("http://localhost:3005/Dossier/UpdateNew", {
+      method: "put",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        person,
-        id_demandeur: id_demandeur,
-        creator,
-        id_conjoin,
-        id_scan_dossier,
-        num_dos: dossierInputs.num_dos,
-        date_depo: dossierInputs.date_depo,
-        num_enf: dossierInputs.num_enf,
-        stuation_s_avec_d: dossierInputs.stuation_s_avec_d,
-        stuation_s_andicap: dossierInputs.stuation_s_andicap,
-        stuation_d: dossierInputs.stuation_d,
-        numb_p: dossierInputs.numb_p,
-        type,
-        gender_conj,
-        saisi_conj,
-        scan_dossier,
-      }),
+      body: JSON.stringify(dossier),
     })
       .then((response) => response.json())
-      .then((user) => {
-        if (user.user_id) {
+      .then((dossier) => {
+        if (dossier.id_dossier) {
           props.history.push("/DisplayForm");
         }
       })
@@ -120,32 +155,23 @@ function Dossier(props) {
   };
 
   const onHandleChange = (event) => {
-    setdossierInputs({
-      ...dossierInputs,
-      [event.target.name]: event.target.value,
-    });
-    if (event.target.name === "stuation_s_neant") {
-      setdossierInputs({
-        ...dossierInputs,
-        stuation_s_neant: !dossierInputs.stuation_s_neant,
+    if (
+      event.target.name === "stuation_s_neant" ||
+      event.target.name === "stuation_s_andicap" ||
+      event.target.name === "stuation_s_avec_d"
+    )
+      setdossier({
+        ...dossier,
+        [event.target.name]: event.target.checked,
       });
-      if (!dossierInputs.stuation_s_neant) {
-        setdossierInputs({ ...dossierInputs, stuation_s_avec_d: false });
-        setdossierInputs({ ...dossierInputs, stuation_s_andicap: false });
-      }
-    }
-    if (event.target.name === "stuation_s_avec_d") {
-      setdossierInputs({ ...dossierInputs, stuation_s_neant: false });
-      setdossierInputs({ ...dossierInputs, stuation_s_avec_d: true });
-    }
-    if (event.target.name === "stuation_s_andicap") {
-      setdossierInputs({ ...dossierInputs, stuation_s_neant: false });
-      setdossierInputs({ ...dossierInputs, stuation_s_andicap: true });
-    }
-    if (event.target.name === "hide_tutele") {
+    else if (event.target.name === "hide_tutele") {
       if (event.target.value === "oui") sethide_tutele(false);
       else sethide_tutele(true);
-    }
+    } else
+      setdossier({
+        ...dossier,
+        [event.target.name]: event.target.value,
+      });
   };
 
   const { usertype } = props;
@@ -165,15 +191,22 @@ function Dossier(props) {
                   <th scope="col">تاريخ الميلاد</th>
                 </tr>
               </thead>
-              <tbody onClick={onPersonSelected}>
-                {newpersons.map((person) => (
-                  <tr className={person.id} key={person.id}>
-                    <th className={person.id} scope="row">
-                      {person.id}
+              <tbody onClick={onDossierSelected}>
+                {newDossiers.map((dossierMap) => (
+                  <tr
+                    className={dossierMap.id_dossier}
+                    key={dossierMap.id_dossier}
+                  >
+                    <th className={dossierMap.id_dossier} scope="row">
+                      {dossierMap.id_dossier}
                     </th>
-                    <td className={person.id}>{person.prenom}</td>
-                    <td className={person.id}>{person.nom}</td>
-                    <td className={person.id}>{person.date_n}</td>
+                    <td className={dossierMap.id_dossier}>
+                      {dossierMap.prenom}
+                    </td>
+                    <td className={dossierMap.id_dossier}>{dossierMap.nom}</td>
+                    <td className={dossierMap.id_dossier}>
+                      {dossierMap.date_n.split("T")[0]}
+                    </td>
                   </tr>
                   // <option key={wilaya.id} value={wilaya.code} >{wilaya.nom_wilaya}</option>
                 ))}
@@ -195,6 +228,8 @@ function Dossier(props) {
                 <div className="col-sm order-sm-last">
                   <label htmlFor="date_depo"> تاريخ الإيداع </label>
                   <input
+                    value={dossier.date_depo.split("T")[0]}
+                    disabled={true}
                     type="date"
                     id="date_depo"
                     name="date_depo"
@@ -206,6 +241,8 @@ function Dossier(props) {
 
                   <label htmlFor="num_dos"> رقم الملف</label>
                   <input
+                    value={dossier.num_dos}
+                    disabled={true}
                     type="text"
                     id="num_dos"
                     name="num_dos"
@@ -294,22 +331,7 @@ function Dossier(props) {
 
                   <input
                     type="checkbox"
-                    checked={dossierInputs.stuation_s_neant}
-                    id="stuation_s_neant"
-                    name="stuation_s_neant"
-                    onChange={onHandleChange}
-                  />
-                  <label
-                    className="form-control text-right"
-                    htmlFor="stuation_s_neant"
-                  >
-                    لاشيء
-                  </label>
-                  <br />
-
-                  <input
-                    type="checkbox"
-                    checked={dossierInputs.stuation_s_avec_d}
+                    checked={dossier.stuation_s_avec_d}
                     id="stuation_s_avec_d"
                     name="stuation_s_avec_d"
                     onChange={onHandleChange}
@@ -318,14 +340,13 @@ function Dossier(props) {
                     className="form-control text-right"
                     htmlFor="stuation_s_avec_d"
                   >
-                    {" "}
                     ذوي حقوق
                   </label>
                   <br />
 
                   <input
                     type="checkbox"
-                    checked={dossierInputs.stuation_s_andicap}
+                    checked={dossier.stuation_s_andicap}
                     id="stuation_s_andicap"
                     name="stuation_s_andicap"
                     onChange={onHandleChange}
@@ -334,7 +355,6 @@ function Dossier(props) {
                     className="form-control text-right"
                     htmlFor="stuation_s_andicap"
                   >
-                    {" "}
                     معاق
                   </label>
                   <br />

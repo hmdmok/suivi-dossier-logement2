@@ -1,14 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ScanedImage = ({ imageLink }) => {
+const ScanedImage = ({ imageLink, title }) => {
   return (
-    <img style={{ width: "100%" }} src={imageLink} alt="img" />
+    <div
+      style={{ width: 220, height: 220 }}
+      className="d-inline-flex p-2 m-2 card "
+    >
+      <div className="card-header">
+        <b>{title}</b>
+      </div>
+      <img width="200" height="150" src={imageLink} alt="img" />
+    </div>
   );
 };
 
 ScanedImage.propTypes = {
-    imageLink: PropTypes.string.isRequired,
+  imageLink: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default ScanedImage;

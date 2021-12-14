@@ -9,19 +9,19 @@ function SaisiConjoin(props) {
   const [hide_conj, sethide_conj] = useState(true);
   const [gender_conj, setgender_conj] = useState("");
   const [type, settype] = useState("");
-  const {getUserid} = props;
+  const { getUserid } = props;
   useEffect(() => {
     if (creator === "") {
       const userID = getUserid();
       setcreator(userID);
     }
-    if (dossierNoConjoin === []) {
+    if (dossierNoConjoin.length === 0) {
       fetch("http://localhost:3005/Dossier/NoConjoin")
         .then((response) => response.json())
         .then((data) => setdossierNoConjoin(data))
         .catch((err) => console.log(err));
     }
-  }, [creator, dossierNoConjoin]);
+  });
 
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
@@ -54,8 +54,8 @@ function SaisiConjoin(props) {
               </tr>
             </thead>
             <tbody onClick={onDossierSelected}>
-              {dossierNoConjoin.map((dossier) => (
-                <tr className={dossier.id_dossier} key={dossier.id}>
+              {dossierNoConjoin.map((dossier, i) => (
+                <tr className={dossier.id_dossier} key={i}>
                   <th className={dossier.id_dossier} scope="row">
                     {dossier.num_dos}
                   </th>

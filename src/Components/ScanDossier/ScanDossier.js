@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FileUpload from "./FileUpload";
+import ScanedImage from "./ScanedImage";
 
 function ScanDossier(props) {
   const initScandossier = {
@@ -85,7 +86,7 @@ function ScanDossier(props) {
         .catch((err) => console.log(err));
     }
     if (
-      !( scandossier === "no scan_dossier found") &&
+      !(scandossier === "no scan_dossier found") &&
       !(
         scandossier.photo_link === "" ||
         scandossier.CIN_link === "" ||
@@ -188,6 +189,7 @@ function ScanDossier(props) {
           </table>
         </div>
       ) : null}
+
       {!hide_scan ? (
         <div>
           <h1 className="my-3">الرجاء مسح ملف </h1>
@@ -202,7 +204,10 @@ function ScanDossier(props) {
               scanelement={"photo_link"}
             />
           ) : (
-            <img src={scandossier.photo_link} alt="Person" width="150" />
+            <ScanedImage
+              imageLink={scandossier.photo_link}
+              title="الصورة الشمسية"
+            />
           )}
           {scandossier.CIN_link === "" ? (
             <FileUpload
@@ -213,7 +218,10 @@ function ScanDossier(props) {
               scanelement={"CIN_link"}
             />
           ) : (
-            <img src={scandossier.CIN_link} alt="Cin" width="150" />
+            <ScanedImage
+              imageLink={scandossier.CIN_link}
+              title="بطاقة التعريف"
+            />
           )}
 
           {scandossier.cert_nes_link === "" ? (
@@ -225,10 +233,9 @@ function ScanDossier(props) {
               scanelement={"cert_nes_link"}
             />
           ) : (
-            <img
-              src={scandossier.cert_nes_link}
-              alt="certif_nais"
-              width="150"
+            <ScanedImage
+              imageLink={scandossier.cert_nes_link}
+              title="شهادة الميلاد"
             />
           )}
 
@@ -241,10 +248,9 @@ function ScanDossier(props) {
               scanelement={"cert_res_link"}
             />
           ) : (
-            <img
-              src={scandossier.cert_res_link}
-              alt="certif_resi"
-              width="150"
+            <ScanedImage
+              imageLink={scandossier.cert_res_link}
+              title="شهادة الاقامة"
             />
           )}
 
@@ -257,34 +263,34 @@ function ScanDossier(props) {
               scanelement={"cert_negatif_link"}
             />
           ) : (
-            <img
-              src={scandossier.cert_negatif_link}
-              alt="prop_negatif"
-              width="150"
+            <ScanedImage
+              imageLink={scandossier.cert_negatif_link}
+              title="شهادة السلبية"
             />
           )}
 
-          <div className="custom-file" hidden={hide_scan_situation_p}>
-            {scandossier.cert_chomage_link === "" ? (
-              <FileUpload
-                Num_Dossier={dossier.id_dossier}
-                titleFilename="شهادة البطالة"
-                tosendFilename={
-                  "certif_chomage_" + dossier.id_demandeur + ".jpg"
-                }
-                setLink={setlink}
-                scanelement={"cert_chomage_link"}
-              />
-            ) : (
-              <img
-                src={scandossier.cert_chomage_link}
-                alt="certif_chomage"
-                width="150"
-              />
-            )}
-          </div>
+          {!hide_scan_situation_p ? 
+            
+              scandossier.cert_chomage_link === "" ? (
+                <FileUpload
+                  Num_Dossier={dossier.id_dossier}
+                  titleFilename="شهادة البطالة"
+                  tosendFilename={
+                    "certif_chomage_" + dossier.id_demandeur + ".jpg"
+                  }
+                  setLink={setlink}
+                  scanelement={"cert_chomage_link"}
+                />
+              ) : (
+                <ScanedImage
+                  imageLink={scandossier.cert_chomage_link}
+                  title="شهادة البطالة"
+                />
+              )
+          
+           : null}
 
-          <div className="custom-file" hidden={!hide_scan_situation_p}>
+          <div hidden={!hide_scan_situation_p}>
             {scandossier.cert_travail_link === "" ? (
               <FileUpload
                 Num_Dossier={dossier.id_dossier}
@@ -296,10 +302,9 @@ function ScanDossier(props) {
                 scanelement={"cert_travail_link"}
               />
             ) : (
-              <img
-                src={scandossier.cert_travail_link}
-                alt="certif_travail"
-                width="150"
+              <ScanedImage
+                imageLink={scandossier.cert_travail_link}
+                title="شهادة العمل"
               />
             )}
 
@@ -312,10 +317,9 @@ function ScanDossier(props) {
                 scanelement={"fiche_paie_3_link"}
               />
             ) : (
-              <img
-                src={scandossier.fiche_paie_3_link}
-                alt="fiche_paie"
-                width="150"
+              <ScanedImage
+                imageLink={scandossier.fiche_paie_3_link}
+                title="بيان الدخل"
               />
             )}
           </div>
@@ -329,7 +333,10 @@ function ScanDossier(props) {
               scanelement={"rest_dossier"}
             />
           ) : (
-            <img src={scandossier.rest_dossier} alt="autre" width="150" />
+            <ScanedImage
+              imageLink={scandossier.rest_dossier}
+              title="باقي الملف"
+            />
           )}
         </div>
       ) : null}
