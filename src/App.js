@@ -14,7 +14,7 @@ import Person from "./Components/Person/Person";
 import ScanDossier from "./Components/ScanDossier/ScanDossier";
 import SaisiConjoin from "./Components/SaisiConjoin/SaisiConjoin";
 import OldRegister from "./Components/OldRegister/OldRegister";
-import Demandeur from "./Components/Demandeur/Demandeur";
+import EnquetCNL from "./Components/EnquetCNL/EnquetCNL";
 
 class App extends Component {
   constructor() {
@@ -103,9 +103,7 @@ class App extends Component {
                   />
                 )}
               />
-              {/* <Login /> */}
-
-              {/* <Logo /> */}
+             
               <ProtectedRoute
                 path="/DisplayForm"
                 component={DisplayForm}
@@ -117,7 +115,18 @@ class App extends Component {
                 setUsertype={this.setUsertype}
               />
               {/* <DisplayForm /> */}
-
+ 
+              <ProtectedRoute
+                path="/EnquetCNL"
+                component={EnquetCNL}
+                getUsername={this.getUsername}
+                getAuthent={this.getAuthent}
+                usertype={this.state.user_type}
+                loadUser={this.loadUser}
+                setAuthent={this.setAuthent}
+                setUsertype={this.setUsertype}
+              />
+              
               <ProtectedRoute
                 path="/Demandeur"
                 getUserid={this.getUserid}

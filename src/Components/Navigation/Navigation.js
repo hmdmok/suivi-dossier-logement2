@@ -7,7 +7,11 @@ const Navigation = () => {
   let history = useHistory();
   return (
     <Navbar className="d-flex flex-row-reverse" bg="light" expand="lg">
-      <Navbar.Brand href="#home">
+      <Navbar.Brand
+        onClick={() => {
+          history.push("/DisplayForm");
+        }}
+      >
         <img src={apartment} alt="logo" width="50" height="50" />
       </Navbar.Brand>
       {/* <Navbar.Brand href="#home">متابعة طلبات السكن</Navbar.Brand> */}
@@ -50,7 +54,11 @@ const Navigation = () => {
             <NavDropdown.Item href="#action/3.3">
               محاضر الاستفادة
             </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">
+            <NavDropdown.Item
+              onClick={() => {
+                history.push("/EnquetCNL");
+              }}
+            >
               قائمة تحقيق CNL
             </NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">
@@ -84,14 +92,9 @@ const Navigation = () => {
             <NavDropdown.Divider />
           </NavDropdown>
           <NavDropdown title="اعدادات" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">
-              اعدادات العرض
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/ًWillaya">
-              {" "}
-              قائمة الولايات
-            </NavDropdown.Item>
+            <NavDropdown.Item href="/ًWillaya">قائمة الولايات</NavDropdown.Item>
             <NavDropdown.Item href="/Commune"> قائمة البلديات</NavDropdown.Item>
+            <NavDropdown.Item href="/TableNotes">جدول التنقيط</NavDropdown.Item>
           </NavDropdown>
           <Nav.Link href="#help">مساعدة</Nav.Link>
         </Nav>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import FileUpload from "./FileUpload";
-import ScanedImage from "./ScanedImage";
+import FileUpload from "../FileUpload/FileUpload";
+import ScanedImage from "../ScanedImage/ScanedImage";
 
 function ScanDossier(props) {
   const initScandossier = {
