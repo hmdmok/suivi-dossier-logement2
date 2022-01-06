@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../Logo/Logo";
 import file from "./file.png";
 import demandeur from "./demandeur.png";
@@ -6,11 +6,20 @@ import update from "./update.png";
 import DefaultImage from "../ScanDossier/DefaultImage.png";
 
 function DisplayForm(props) {
-  const username = props.getUsername();
+  const userID = props.getUserid();
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    fetch("http://localhost:3005/DisplayForm/" + userID)
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((err) => console.log(err));
+  }, [userID]);
   return (
     <div className="container border shadow p-4 mb-3 mt-3 bg-body rounded">
       <div className="m-2 row d-flex justify-content-center flex-row-reverse">
-        <Logo root={"/DisplayForm"} title={username} pic={DefaultImage} />
+        <Logo root={"/DisplayForm"} title={user.user_name} pic={user.photo_link} />
       </div>
       <div className="d-flex justify-content-center">
         <h1 className="col-12">الصفحة الرئيسة</h1>

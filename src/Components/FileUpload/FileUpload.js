@@ -25,7 +25,7 @@ const FileUpload = ({
       setFile(myRenamedFile);
       setFilename(tosendFilename);
     } else {
-      setMessage("please chose a jpg picture");
+      setMessage("يرجى اختيار صورة");
     }
   };
 
@@ -56,7 +56,7 @@ const FileUpload = ({
           .catch((err) => console.log(err));
       } catch (err) {
         if (err.response.status === 500) {
-          setMessage("There was a problem with the server");
+          setMessage("يوجد مشكل في الخادم");
         } else {
           setMessage(err.response.data.msg);
         }

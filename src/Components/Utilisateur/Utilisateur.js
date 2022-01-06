@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import FileUpload from "../FileUpload/FileUpload";
 import ScanedImage from "../ScanedImage/ScanedImage";
 import DefaultImage from "./DefaultImage.jpg";
+import Message from "../Message/Message";
 
 function Utilisateur(props) {
+  const [message, setMessage] = useState("");
   const [utilisateur, setutilisateur] = useState({
     firstname: "",
     lastname: "",
@@ -13,9 +15,10 @@ function Utilisateur(props) {
     usertype: "",
     birthday: "",
     email: "",
-    numtel: "",
-    photoLink: DefaultImage,
+    phone: "",
+    photo_link: DefaultImage,
     remark: "",
+    creator: props.getUsername(),
   });
 
   const setlink = (link, elem) => {
@@ -34,21 +37,12 @@ function Utilisateur(props) {
   const onSubmitUtilisateur = (event) => {
     event.preventDefault();
     if (utilisateur.password !== utilisateur.repassword) {
-      alert("كلمة السر غير متطابقة");
+      setMessage("كلمة السر غير متطابقة");
     } else {
       fetch("http://localhost:3005/Utilisateur", {
         method: "post",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          firstname: utilisateur.firstname,
-          lastname: utilisateur.lastname,
-          username: utilisateur.username,
-          password: utilisateur.password,
-          usertype: utilisateur.usertype,
-          birthday: utilisateur.birthday,
-          creator: props.getUsername(),
-          remark: utilisateur.remark,
-        }),
+        body: JSON.stringify(utilisateur),
       })
         .then((response) => response.json())
         .then((user) => {
@@ -57,8 +51,11 @@ function Utilisateur(props) {
             props.setAuthent(true);
             props.setUsertype(user.usertype);
             props.history.push("/DisplayForm");
+          } else if (user.message === "user alredy exists") {
+            setMessage("اسم المستخدم موجود من قبل ... اختر اسم مستخدم مختلف");
           }
-        });
+        })
+        .catch((err) => setMessage(err));
     }
   };
 
@@ -68,6 +65,7 @@ function Utilisateur(props) {
       className="container form-signin border shadow p-3 my-5 bg-light bg-gradient rounded"
     >
       <h1>الرجاء ادخال معلومات المستخدم</h1>
+      {message ? <Message msg={message} /> : null}
       <div className="row text-right">
         <div className="col order-last">
           <label htmlFor="inputFirstName" className="text-right">
@@ -117,7 +115,7 @@ function Utilisateur(props) {
             رقم الهاتف
           </label>
           <input
-            name="numtel"
+            name="phone"
             onChange={onHandleChange}
             type="tel"
             id="inputTelephone"
@@ -214,18 +212,18 @@ function Utilisateur(props) {
       <div className="row">
         <div className="col">
           <ScanedImage
-            imageLink={utilisateur.photoLink}
+            imageLink={utilisateur.photo_link}
             title="صورة المستخدم"
           />
         </div>
         <div className="col-9">
-          {utilisateur.photoLink === DefaultImage ? (
+          {utilisateur.photo_link === DefaultImage ? (
             <FileUpload
               Num_Dossier={utilisateur.username}
               titleFilename="صورة المستخدم"
               tosendFilename={"photo_profile_" + utilisateur.username + ".jpg"}
               setLink={setlink}
-              scanelement={"photoLink"}
+              scanelement={"photo_link"}
             />
           ) : null}
         </div>

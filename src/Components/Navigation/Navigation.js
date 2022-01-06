@@ -94,7 +94,13 @@ const Navigation = () => {
           <NavDropdown title="اعدادات" id="basic-nav-dropdown">
             <NavDropdown.Item href="/ًWillaya">قائمة الولايات</NavDropdown.Item>
             <NavDropdown.Item href="/Commune"> قائمة البلديات</NavDropdown.Item>
-            <NavDropdown.Item href="/TableNotes">جدول التنقيط</NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={() => {
+                history.push("/TableNotes");
+              }}
+            >
+              جدول التنقيط
+            </NavDropdown.Item>
           </NavDropdown>
           <Nav.Link href="#help">مساعدة</Nav.Link>
         </Nav>

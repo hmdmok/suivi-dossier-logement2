@@ -15,6 +15,7 @@ import ScanDossier from "./Components/ScanDossier/ScanDossier";
 import SaisiConjoin from "./Components/SaisiConjoin/SaisiConjoin";
 import OldRegister from "./Components/OldRegister/OldRegister";
 import EnquetCNL from "./Components/EnquetCNL/EnquetCNL";
+import TableNotes from "./Components/TableNotes/TableNotes";
 
 class App extends Component {
   constructor() {
@@ -103,9 +104,10 @@ class App extends Component {
                   />
                 )}
               />
-             
+
               <ProtectedRoute
                 path="/DisplayForm"
+                getUserid={this.getUserid}
                 component={DisplayForm}
                 getUsername={this.getUsername}
                 getAuthent={this.getAuthent}
@@ -115,7 +117,7 @@ class App extends Component {
                 setUsertype={this.setUsertype}
               />
               {/* <DisplayForm /> */}
- 
+
               <ProtectedRoute
                 path="/EnquetCNL"
                 component={EnquetCNL}
@@ -126,7 +128,7 @@ class App extends Component {
                 setAuthent={this.setAuthent}
                 setUsertype={this.setUsertype}
               />
-              
+
               <ProtectedRoute
                 path="/Demandeur"
                 getUserid={this.getUserid}
@@ -187,6 +189,17 @@ class App extends Component {
                 path="/OldRegister"
                 getUsername={this.getUsername}
                 component={OldRegister}
+                getAuthent={this.getAuthent}
+                usertype={this.state.user_type}
+                loadUser={this.loadUser}
+                setAuthent={this.setAuthent}
+                setUsertype={this.setUsertype}
+              />
+
+              <ProtectedRoute
+                path="/TableNotes"
+                getUsername={this.getUsername}
+                component={TableNotes}
                 getAuthent={this.getAuthent}
                 usertype={this.state.user_type}
                 loadUser={this.loadUser}
