@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import calculate from "../CalculeNotesDossier/CalculeNotesDossier";
 
 function Dossier(props) {
   const [newDossiers, setnewDossiers] = useState([]);
@@ -52,8 +53,10 @@ function Dossier(props) {
     id_user: 0,
     id_conjoin: 0,
     id_scan_dossier: 0,
+    note: 0,
   });
   const [userID, setuserID] = useState(0);
+  const [tableNote, setTableNote] = useState([]);
   const { getUserid } = props;
 
   // const setId_conjoin = (id_p) => {
@@ -72,7 +75,6 @@ function Dossier(props) {
         ...dossier,
         id_user: userID,
       });
-      console.log("1");
     }
     if (dossier.id_demandeur === 0) {
       fetch("http://localhost:3005/Dossier/NewDossiers")
@@ -80,7 +82,13 @@ function Dossier(props) {
         .then((data) => setnewDossiers(data))
         .catch((err) => console.log(err));
     }
-  });
+    fetch("http://localhost:3005/TableNotes")
+      .then((response) => response.json())
+      .then((data) => {
+        setTableNote(data);
+      })
+      .catch((err) => alert(err));
+  }, []);
 
   useEffect(() => {
     if (dossier.type === "dema") {
@@ -93,20 +101,17 @@ function Dossier(props) {
               ...dossier,
               saisi_conj: "non",
             });
-            console.log("2");
           }
           if (data.gender === "m") {
             setdossier({
               ...dossier,
               gender_conj: "f",
             });
-            console.log("3");
           } else {
             setdossier({
               ...dossier,
               gender_conj: "m",
             });
-            console.log("4");
           }
         })
         .then(() => {
@@ -117,7 +122,6 @@ function Dossier(props) {
             stuation_s_andicap: false,
             stuation_s_avec_d: false,
           });
-          console.log("5");
         })
         .catch((err) => console.log(err));
     }
@@ -129,7 +133,7 @@ function Dossier(props) {
       .then((response) => response.json())
       .then((data) => {
         setdossier(data);
-        console.log("6");
+
         sethide_new(true);
         sethide_saisi(false);
       })
@@ -139,19 +143,22 @@ function Dossier(props) {
 
   const onSubmitDossier = (event) => {
     event.preventDefault();
-
+    const newDossier = { ...dossier };
+    newDossier["note"] = calculate.calculate(dossier, tableNote);
+    setdossier(newDossier);
     fetch("http://localhost:3005/Dossier/UpdateNew", {
       method: "put",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(dossier),
+      body: JSON.stringify(newDossier),
     })
       .then((response) => response.json())
-      .then((dossier) => {
-        if (dossier.id_dossier) {
+      .then((dossier1) => {
+        if (dossier1.id_dossier) {
           props.history.push("/DisplayForm");
         }
       })
       .catch((err) => console.log(err));
+    // alert(calculate.calculate(dossier));
   };
 
   const onHandleChange = (event) => {
