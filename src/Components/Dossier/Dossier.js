@@ -31,6 +31,33 @@ function Dossier(props) {
     salaire: 0,
     creator: 0,
   });
+  const [conjoin, setconjoin] = useState({
+    id: 0,
+    type: "",
+    prenom: "",
+    prenom_fr: "",
+    nom: "",
+    nom_fr: "",
+    gender: "",
+    num_act: "",
+    date_n: "",
+    lieu_n: "",
+    lieu_n_fr: "",
+    wil_n: 0,
+    com_n: 0,
+    prenom_p: "",
+    prenom_p_fr: "",
+    prenom_m: "",
+    prenom_m_fr: "",
+    nom_m: "",
+    nom_m_fr: "",
+    num_i_n: "",
+    stuation_f: "",
+    situation_p: "",
+    profession: "",
+    salaire: 0,
+    creator: 0,
+  });
   const [hide_new, sethide_new] = useState(false);
   const [hide_saisi, sethide_saisi] = useState(true);
   const [hide_tutele, sethide_tutele] = useState(true);
@@ -125,6 +152,15 @@ function Dossier(props) {
         })
         .catch((err) => console.log(err));
     }
+
+    if (dossier.saisi_conj === "oui") {
+      fetch("http://localhost:3005/Person/" + dossier.id_conjoin)
+        .then((response) => response.json())
+        .then((data) => {
+          setconjoin(data);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [dossier.id_dossier]);
 
   const onDossierSelected = (event) => {
@@ -144,7 +180,16 @@ function Dossier(props) {
   const onSubmitDossier = (event) => {
     event.preventDefault();
     const newDossier = { ...dossier };
-    newDossier["note"] = calculate.calculate(dossier, tableNote);
+    const salairDemandeur = person.salaire,
+      salairConjoin = conjoin.salaire,
+      situationF = person.stuation_f;
+    newDossier["note"] = calculate.calculate(
+      dossier,
+      salairDemandeur,
+      salairConjoin,
+      situationF,
+      tableNote
+    );
     setdossier(newDossier);
     fetch("http://localhost:3005/Dossier/UpdateNew", {
       method: "put",
