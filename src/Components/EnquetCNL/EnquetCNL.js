@@ -3,6 +3,7 @@ import Message from "../Message/Message";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { Table } from "react-bootstrap";
 
+
 function EnquetCNL(props) {
   const columns = [
     { field: "", headerName: "Ordre" },
@@ -41,7 +42,7 @@ function EnquetCNL(props) {
   });
 
   const onUpload = () => {
-    console.log(form);
+     
     fetch("http://localhost:3005/DossierEnq", {
       method: "post",
       headers: { "content-type": "application/json" },

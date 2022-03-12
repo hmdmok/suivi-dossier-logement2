@@ -12,6 +12,7 @@
     "axios": "^0.22.0",
     "bootstrap": "^4.6.1",
     "browserslist": "^4.19.1",
+    "excel-date-to-js": "^1.1.4",
     "glob-parent": "^6.0.2",
     "immer": "^9.0.7",
     "jquery": "^3.6.0",
