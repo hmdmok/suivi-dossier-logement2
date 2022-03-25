@@ -16,6 +16,8 @@ function OldRegister() {
   const onChange = (event) => {
     setMessage("");
     setTableOutput([]);
+    setMessageTable("");
+    setTableErrors([]);
     if (
       event.target.files[0].type ===
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
@@ -37,6 +39,7 @@ function OldRegister() {
           var table_output = [],
             table_errors = [];
           var error = false;
+          var newMessage = messageTable;
           for (var row = 0; row < sheet_data.length; row++) {
             if (sheet_data[row].length < 15) {
               setMessage("الملف غير مطابق يرجى تحميل المثال");
@@ -45,110 +48,131 @@ function OldRegister() {
             if (row === 0) {
               for (var cell = 0; cell < sheet_data[row].length; cell++) {
                 if (cell === 0)
+                  if (!(sheet_data[row][cell] === "السطر")) {
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
+                    error = true;
+                  }
+                if (cell === 1)
                   if (!(sheet_data[row][cell] === "البلدية")) {
                     setMessage("1الملف غير مطابق يرجى تحميل المثال");
                     error = true;
                   }
-                if (cell === 1)
+                if (cell === 2)
                   if (!(sheet_data[row][cell] === "رقم السجل")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال2");
                     error = true;
                   }
-                if (cell === 2)
+                if (cell === 3)
                   if (!(sheet_data[row][cell] === "رقم الملف")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال3");
                     error = true;
                   }
-                if (cell === 3)
+                if (cell === 4)
                   if (!(sheet_data[row][cell] === "تاريخ ايداع الملف")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال4");
                     error = true;
                   }
-                if (cell === 4)
+                if (cell === 5)
                   if (!(sheet_data[row][cell] === "الاسم")) {
                     setMessage(" ");
                     error = true;
                   }
-                if (cell === 5)
+                if (cell === 6)
                   if (!(sheet_data[row][cell] === "اللقب")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال6");
                     error = true;
                   }
-                if (cell === 6)
+                if (cell === 7)
                   if (!(sheet_data[row][cell] === "تاريخ الميلاد")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال7");
                     error = true;
                   }
-                if (cell === 7)
+                if (cell === 8)
                   if (!(sheet_data[row][cell] === "مكان الميلاد")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال8");
                     error = true;
                   }
-                if (cell === 8)
+                if (cell === 9)
                   if (!(sheet_data[row][cell] === "العنوان")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال9");
                     error = true;
                   }
-                if (cell === 9)
+                if (cell === 10)
                   if (!(sheet_data[row][cell] === "اسم الاب")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال10");
                     error = true;
                   }
-                if (cell === 10)
+                if (cell === 11)
                   if (!(sheet_data[row][cell] === "لقب الام")) {
                     setMessage("الملف غير مطابق يرجى تحميل المثال11");
                     error = true;
                   }
-                if (cell === 11)
-                  if (!(sheet_data[row][cell] === "اسم الام")) {
-                    setMessage("الملف غير مطابق يرجى تحميل المثال12");
-                    error = true;
-                  }
                 if (cell === 12)
-                  if (!(sheet_data[row][cell] === "حالة الملف")) {
-                    setMessage("الملف غير مطابق يرجى تحميل المثال13");
+                  if (!(sheet_data[row][cell] === "اسم الام")) {
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
                     error = true;
                   }
                 if (cell === 13)
-                  if (!(sheet_data[row][cell] === "رقم الحصة")) {
-                    setMessage("الملف غير مطابق يرجى تحميل المثال14");
+                  if (!(sheet_data[row][cell] === "حالة الملف")) {
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
                     error = true;
                   }
                 if (cell === 14)
-                  if (!(sheet_data[row][cell] === "تاريخ الاستفادة")) {
-                    setMessage("الملف غير مطابق يرجى تحميل المثال15");
+                  if (!(sheet_data[row][cell] === "رقم الحصة")) {
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
                     error = true;
                   }
                 if (cell === 15)
+                  if (!(sheet_data[row][cell] === "تاريخ الاستفادة")) {
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
+                    error = true;
+                  }
+                if (cell === 16)
                   if (!(sheet_data[row][cell] === "ملاحضات")) {
-                    setMessage("الملف غير مطابق يرجى تحميل المثال16");
+                    setMessage("الملف غير مطابق يرجى تحميل المثال");
                     error = true;
                   }
               }
             } else if (!error) {
               var newRow = [];
               var errorTable = false;
+
               newRow = sheet_data[row];
               var newDate;
+              var data = newRow[0];
+
+              if (data !== parseInt(data, 10)) {
+                errorTable = true;
+
+                newMessage += "خطء في السطر " + row + " في العمود " + 1 + " . ";
+                setMessageTable(newMessage);
+              }
               try {
                 newDate = new Date(
-                  (newRow[3] - (25567 + 1)) * 86400 * 1000
+                  (newRow[4] - (25567 + 1)) * 86400 * 1000
                 ).toISOString();
-                newRow[3] = newDate.split("T")[0];
+                newRow[4] = newDate.split("T")[0];
               } catch {
                 errorTable = true;
-                newRow.push(row + 1);
-                setMessageTable(
-                  messageTable +
-                    " خطء في السطر " +
-                    (row + 1) +
-                    " في العمود " +
-                    4
-                );
-              }
 
+                newMessage += "خطء في السطر " + row + " في العمود " + 5 + " . ";
+                setMessageTable(newMessage);
+              }
+              try {
+                newDate = new Date(
+                  (newRow[7] - (25567 + 1)) * 86400 * 1000
+                ).toISOString();
+                newRow[7] = newDate.split("T")[0];
+              } catch {
+                errorTable = true;
+
+                newMessage += "خطء في السطر " + row + " في العمود " + 8 + " . ";
+                setMessageTable(newMessage);
+              }
               if (!errorTable) table_output.push(newRow);
-              else table_errors.push(newRow);
+              else {
+                table_errors.push(newRow);
+              }
             }
           }
         }
@@ -251,6 +275,11 @@ function OldRegister() {
             ) : null}
 
             <h1 className="my-5">ملفات السجل</h1>
+            {tableOutput.length !== 0 ? (
+              <div>
+                <button>اظافة الملفات الى قاعدة البيانات</button>
+              </div>
+            ) : null}
             <Table striped bordered responsive id="data-table">
               <thead className="thead-dark">
                 <tr>
