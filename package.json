@@ -1,5 +1,6 @@
 {
   "name": "suivi-dossier-logement2",
+  "homepage": "https://hmdmok.github.io/suivi-dossier-logement2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +15,7 @@
     "bootstrap": "^4.6.1",
     "browserslist": "^4.19.1",
     "excel-date-to-js": "^1.1.4",
+    "gh-pages": "^4.0.0",
     "glob-parent": "^6.0.2",
     "immer": "^9.0.7",
     "jquery": "^3.6.0",
@@ -33,6 +35,8 @@
     "xlsx": "^0.17.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
