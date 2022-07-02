@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-import Navigation from './Components/Navigation/Navigation';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-function App() {
-  return (
-    <div className="App">
-      <Navigation />
-      {/* <Logo /> */}
-      {/* <DisplayForm /> */}
-      {/* <Demandeur /> */}
-      {/* <Dossier /> */}
-      {/* <Miseajour /> */}
-      {/* <Login /> */}
-      {/* <Utilisateur /> */}
-      {/* <ListDossiers /> */}
-      {/* <ListUtilisateurs /> */}
-    </div>
-  );
-}
-
-export default App;
-=======
 import Navigation from "./Components/Navigation/Navigation";
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
@@ -247,4 +223,3 @@ class App extends Component {
 }
 
 export default App;
->>>>>>> master
