@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "suivi-dossier-logement2",
   "version": "0.1.0",
@@ -39,3 +40,69 @@
     ]
   }
 }
+=======
+{
+  "name": "suivi-dossier-logement2",
+  "homepage": "https://hmdmok.github.io/suivi-dossier-logement2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@angular/core": "^14.0.4",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "5.2.4",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.22.0",
+    "bootstrap": "^4.6.1",
+    "browserslist": "^4.21.1",
+    "excel-date-to-js": "^1.1.4",
+    "gh-pages": "^4.0.0",
+    "glob-parent": "^6.0.2",
+    "immer": "^9.0.15",
+    "jquery": "^3.6.0",
+    "mui": "0.0.1",
+    "popper.js": "^1.16.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.5",
+    "react-dom": "^17.0.2",
+    "react-html-table-to-excel": "^2.0.0",
+    "react-parallax-tilt": "^1.7.43",
+    "react-router-dom": "^5.3.3",
+    "react-scripts": "^5.0.1",
+    "ssri": "^8.0.1",
+    "tachyons": "^4.12.0",
+    "typescript": "^4.7.4",
+    "web-vitals": "^1.1.2",
+    "xlsx": "^0.17.5"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:3005"
+}
+>>>>>>> master
