@@ -21,6 +21,7 @@
     "jquery": "^3.6.0",
     "mui": "0.0.1",
     "popper.js": "^1.16.1",
+    "postcss-svgo": "5.1.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.5",
     "react-dom": "^17.0.2",
