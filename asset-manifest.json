@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/suivi-dossier-logement2/static/css/main.8e989ade.css",
+    "main.js": "/suivi-dossier-logement2/static/js/main.2f7a5670.js",
+    "static/js/787.5e31f354.chunk.js": "/suivi-dossier-logement2/static/js/787.5e31f354.chunk.js",
+    "static/media/file.png": "/suivi-dossier-logement2/static/media/file.2b87dc63e2fba10c2ed7.png",
+    "static/media/update.png": "/suivi-dossier-logement2/static/media/update.3685f476d0f696092d75.png",
+    "static/media/demandeur.png": "/suivi-dossier-logement2/static/media/demandeur.187585350154310ba1fe.png",
+    "index.html": "/suivi-dossier-logement2/index.html",
+    "main.8e989ade.css.map": "/suivi-dossier-logement2/static/css/main.8e989ade.css.map",
+    "main.2f7a5670.js.map": "/suivi-dossier-logement2/static/js/main.2f7a5670.js.map",
+    "787.5e31f354.chunk.js.map": "/suivi-dossier-logement2/static/js/787.5e31f354.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8e989ade.css",
+    "static/js/main.2f7a5670.js"
+  ]
+}
