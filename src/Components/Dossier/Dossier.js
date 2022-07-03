@@ -104,12 +104,12 @@ function Dossier(props) {
       });
     }
     if (dossier.id_demandeur === 0) {
-      fetch("http://localhost:3005/Dossier/NewDossiers")
+      fetch("https://sdl-api.herokuapp.com/Dossier/NewDossiers")
         .then((response) => response.json())
         .then((data) => setnewDossiers(data))
         .catch((err) => console.log(err));
     }
-    fetch("http://localhost:3005/TableNotes")
+    fetch("https://sdl-api.herokuapp.com/TableNotes")
       .then((response) => response.json())
       .then((data) => {
         setTableNote(data);
@@ -119,7 +119,7 @@ function Dossier(props) {
 
   useEffect(() => {
     if (dossier.type === "dema") {
-      fetch("http://localhost:3005/Person/" + dossier.id_demandeur)
+      fetch("https://sdl-api.herokuapp.com/Person/" + dossier.id_demandeur)
         .then((response) => response.json())
         .then((data) => {
           setperson({ ...data, type: data.type + "_1" });
@@ -154,7 +154,7 @@ function Dossier(props) {
     }
 
     if (dossier.saisi_conj === "oui") {
-      fetch("http://localhost:3005/Person/" + dossier.id_conjoin)
+      fetch("https://sdl-api.herokuapp.com/Person/" + dossier.id_conjoin)
         .then((response) => response.json())
         .then((data) => {
           setconjoin(data);
@@ -165,7 +165,7 @@ function Dossier(props) {
 
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
-    fetch("http://localhost:3005/Dossier/" + dossier_id)
+    fetch("https://sdl-api.herokuapp.com/Dossier/" + dossier_id)
       .then((response) => response.json())
       .then((data) => {
         setdossier(data);
@@ -191,7 +191,7 @@ function Dossier(props) {
       tableNote
     );
     setdossier(newDossier);
-    fetch("http://localhost:3005/Dossier/UpdateNew", {
+    fetch("https://sdl-api.herokuapp.com/Dossier/UpdateNew", {
       method: "put",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newDossier),

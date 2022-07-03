@@ -43,7 +43,7 @@ function EnquetCNL(props) {
 
   const onUpload = () => {
      
-    fetch("http://localhost:3005/DossierEnq", {
+    fetch("https://sdl-api.herokuapp.com/DossierEnq", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(form),

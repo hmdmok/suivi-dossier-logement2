@@ -9,7 +9,7 @@ function DisplayForm(props) {
   const userID = props.getUserid();
   const [user, setUser] = useState({});
   useEffect(() => {
-    fetch("http://localhost:3005/DisplayForm/" + userID)
+    fetch("https://sdl-api.herokuapp.com/DisplayForm/" + userID)
       .then((response) => response.json())
       .then((data) => {
         setUser(data);

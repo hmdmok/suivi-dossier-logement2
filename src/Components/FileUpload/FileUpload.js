@@ -35,7 +35,7 @@ const FileUpload = ({
     formData.append("file", file);
     if (Num_Dossier)
       try {
-        fetch("http://localhost:3005/upload/" + Num_Dossier, {
+        fetch("https://sdl-api.herokuapp.com/upload/" + Num_Dossier, {
           method: "post",
           body: formData,
           onUploadProgress: (progressEvent) => {
