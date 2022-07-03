@@ -39,7 +39,7 @@ function Utilisateur(props) {
     if (utilisateur.password !== utilisateur.repassword) {
       setMessage("كلمة السر غير متطابقة");
     } else {
-      fetch("http://localhost:3005/Utilisateur", {
+      fetch("https://sdl-api.herokuapp.com/Utilisateur", {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(utilisateur),

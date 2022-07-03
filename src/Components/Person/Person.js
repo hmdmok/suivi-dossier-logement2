@@ -57,7 +57,7 @@ function Person(props) {
 
   useEffect(() => {
     setuserID(getUserid());
-    fetch("http://localhost:3005/Wilaya")
+    fetch("https://sdl-api.herokuapp.com/Wilaya")
       .then((response) => response.json())
       .then((data) => setwilayas(data))
       .catch((err) => console.log(err));
@@ -100,7 +100,7 @@ function Person(props) {
       });
     if (event.target.name === "wil_n") {
       const code_wilaya = event.target.value;
-      const url = "http://localhost:3005/Communes/" + code_wilaya;
+      const url = "https://sdl-api.herokuapp.com/Communes/" + code_wilaya;
       fetch(url)
         .then((response) => response.json())
         .then((communes) => setcommunes(communes))
@@ -120,7 +120,7 @@ function Person(props) {
   useEffect(() => {
     if (!(person.id === 0))
       if (!demande_type) {
-        fetch("http://localhost:3005/Dossier/Conjoin", {
+        fetch("https://sdl-api.herokuapp.com/Dossier/Conjoin", {
           method: "put",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
@@ -145,7 +145,7 @@ function Person(props) {
 
   useEffect(() => {
     if (!(dossierToFetch.id_demandeur === 0)) {
-      fetch("http://localhost:3005/Dossier", {
+      fetch("https://sdl-api.herokuapp.com/Dossier", {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(dossierToFetch),
@@ -164,7 +164,7 @@ function Person(props) {
     event.preventDefault();
     // console.log(person);
     // console.log(dossierToFetch);
-    fetch("http://localhost:3005/Person", {
+    fetch("https://sdl-api.herokuapp.com/Person", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(person),

@@ -18,7 +18,7 @@ class Login extends React.Component {
 
     onSubmitLogin = (event) => {
         event.preventDefault();
-        fetch('http://localhost:3005/Login', {
+        fetch('https://sdl-api.herokuapp.com/Login', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({

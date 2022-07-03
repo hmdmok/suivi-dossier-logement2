@@ -16,7 +16,7 @@ function SaisiConjoin(props) {
       setcreator(userID);
     }
     if (dossierNoConjoin.length === 0) {
-      fetch("http://localhost:3005/Dossier/NoConjoin")
+      fetch("https://sdl-api.herokuapp.com/Dossier/NoConjoin")
         .then((response) => response.json())
         .then((data) => setdossierNoConjoin(data))
         .catch((err) => console.log(err));
@@ -25,7 +25,7 @@ function SaisiConjoin(props) {
 
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
-    fetch("http://localhost:3005/Dossier/" + dossier_id)
+    fetch("https://sdl-api.herokuapp.com/Dossier/" + dossier_id)
       .then((response) => response.json())
       .then((data) => {
         setdossier(data);

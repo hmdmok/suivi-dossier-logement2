@@ -184,7 +184,7 @@ function OldRegister() {
 
   useEffect(() => {
     if (systemCommunes.length === 0) {
-      fetch("http://localhost:3005/SystemCommunes")
+      fetch("https://sdl-api.herokuapp.com/SystemCommunes")
         .then((response) => response.json())
         .then((data) => {
           if (data) {

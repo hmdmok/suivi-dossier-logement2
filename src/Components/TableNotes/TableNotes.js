@@ -13,7 +13,7 @@ function TableNotes(porps) {
   const [noteElementId, setNoteElementId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3005/TableNotes")
+    fetch("https://sdl-api.herokuapp.com/TableNotes")
       .then((response) => response.json())
       .then((data) => {
         setTableNote(data);
@@ -66,7 +66,7 @@ function TableNotes(porps) {
     setTableNote(editedNoteElement);
     setNoteElementId(null);
 
-    fetch("http://localhost:3005/TableNotes", {
+    fetch("https://sdl-api.herokuapp.com/TableNotes", {
       method: "put",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(editedContact),

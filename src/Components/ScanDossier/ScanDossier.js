@@ -37,7 +37,7 @@ function ScanDossier(props) {
       setcreator(userID);
     }
     if (id_dossier === 0) {
-      fetch("http://localhost:3005/Dossier/NoScan")
+      fetch("https://sdl-api.herokuapp.com/Dossier/NoScan")
         .then((response) => response.json())
         .then((data) => setNewdossier(data))
         .catch((err) => console.log(err));
@@ -59,7 +59,7 @@ function ScanDossier(props) {
   }, [dossier, scandossier]);
   useEffect(() => {
     if (scandossier.remark === "ADD new ScanDossier") {
-      fetch("http://localhost:3005/ScanDossier/Add", {
+      fetch("https://sdl-api.herokuapp.com/ScanDossier/Add", {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(scandossier),
@@ -72,7 +72,7 @@ function ScanDossier(props) {
         })
         .catch((err) => console.log(err));
     } else if (scandossier.remark === "UPDATE ScanDossier") {
-      fetch("http://localhost:3005/ScanDossier/UpdateNew", {
+      fetch("https://sdl-api.herokuapp.com/ScanDossier/UpdateNew", {
         method: "put",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(scandossier),
@@ -105,7 +105,7 @@ function ScanDossier(props) {
         ...dossier,
         scan_dossier: "oui",
       });
-      fetch("http://localhost:3005/Dossier/ScanStatus", {
+      fetch("https://sdl-api.herokuapp.com/Dossier/ScanStatus", {
         method: "put",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -139,7 +139,7 @@ function ScanDossier(props) {
   const onDossierSelected = (event) => {
     const dossier_id = event.target.className;
     fetch(
-      "http://localhost:3005/ScanDossier/" + newdossier[dossier_id].id_dossier
+      "https://sdl-api.herokuapp.com/ScanDossier/" + newdossier[dossier_id].id_dossier
     )
       .then((response) => response.json())
       .then((data) => {
