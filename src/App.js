@@ -6,7 +6,7 @@ import DisplayForm from "./Components/DisplayForm/DisplayForm";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import ProtectedRoute from "./Components/ProtectdRoute/ProtectedRoute";
 import Utilisateur from "./Components/Utilisateur/Utilisateur";
 import Contact from "./Components/Contact/Contact";
