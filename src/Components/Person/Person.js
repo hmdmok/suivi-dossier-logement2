@@ -57,21 +57,25 @@ function Person(props) {
 
   useEffect(() => {
     setuserID(getUserid());
+    var newPerson = person;
+    var newDToFetch = dossierToFetch;
     fetch("https://sdl-api.herokuapp.com/Wilaya")
       .then((response) => response.json())
       .then((data) => setwilayas(data))
       .catch((err) => console.log(err));
     if (demande_type) {
-      setperson({ ...person, type: "dema" });
-      setdossierToFetch({ ...dossierToFetch, type: "dema" });
+      newPerson = { ...person, type: "dema" };
+      newDToFetch = { ...dossierToFetch, type: "dema" };
     } else {
-      setperson({
+      newPerson = {
         ...person,
         type: "conj",
         stuation_f: "m",
         gender: gender_conj,
-      });
+      };
     }
+    setperson(newPerson);
+    setdossierToFetch(newDToFetch);
   }, []);
 
   useEffect(() => {
