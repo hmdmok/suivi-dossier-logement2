@@ -57,6 +57,9 @@ function Person(props) {
 
   useEffect(() => {
     setuserID(getUserid());
+    var type = "";
+    var stuation_f = person.stuation_f;
+    var gender = person.gender;
     var newPerson = person;
     var newDToFetch = dossierToFetch;
     fetch("https://sdl-api.herokuapp.com/Wilaya")
@@ -64,32 +67,32 @@ function Person(props) {
       .then((data) => setwilayas(data))
       .catch((err) => console.log(err));
     if (demande_type) {
-      newPerson = { ...person, type: "dema" };
-      newDToFetch = { ...dossierToFetch, type: "dema" };
+      type = "dema";
     } else {
-      newPerson = {
-        ...person,
-        type: "conj",
-        stuation_f: "m",
-        gender: gender_conj,
-      };
+      type = "conj";
+      stuation_f = "m";
+      gender = gender_conj;
     }
+
+    newPerson = {
+      ...person,
+      type: type,
+      stuation_f: stuation_f,
+      gender: gender,
+      creator: userID,
+      remark: "add new person",
+    };
+    newDToFetch = {
+      ...dossierToFetch,
+      type: type,
+      creator: userID,
+      remark: "add new dossier",
+    };
+    console.log(newPerson);
+    console.log(newDToFetch);
     setperson(newPerson);
     setdossierToFetch(newDToFetch);
   }, []);
-
-  useEffect(() => {
-    setperson({
-      ...person,
-      creator: userID,
-      remark: "add new person",
-    });
-    setdossierToFetch({
-      ...dossierToFetch,
-      creator: userID,
-      remark: "add new dossier",
-    });
-  }, [userID]);
 
   const onHandleChange = (event) => {
     if (event.target.name === "date_depo" || event.target.name === "num_dos")
@@ -166,8 +169,8 @@ function Person(props) {
 
   const onSubmitPerson = (event) => {
     event.preventDefault();
-    // console.log(person);
-    // console.log(dossierToFetch);
+    console.log(person);
+    console.log(dossierToFetch);
     fetch("https://sdl-api.herokuapp.com/Person", {
       method: "post",
       headers: { "content-type": "application/json" },
