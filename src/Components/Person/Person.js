@@ -81,13 +81,13 @@ function Person(props) {
       type: type,
       stuation_f: stuation_f,
       gender: gender,
-      creator: userID,
+      creator: usID,
       remark: "add new person",
     };
     newDToFetch = {
       ...dossierToFetch,
       type: type,
-      creator: userID,
+      creator: usID,
       remark: "add new dossier",
     };
     console.log(newPerson);
