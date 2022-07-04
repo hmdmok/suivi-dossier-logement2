@@ -56,7 +56,9 @@ function Person(props) {
   const [userID, setuserID] = useState(0);
 
   useEffect(() => {
-    setuserID(getUserid());
+    var usID = 0;
+    usID = getUserid();
+    if (!(usID === 0)) setuserID(usID);
     var type = "";
     var stuation_f = person.stuation_f;
     var gender = person.gender;
