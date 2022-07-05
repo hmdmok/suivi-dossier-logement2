@@ -90,7 +90,7 @@ function Person(props) {
       creator: usID,
       remark: "add new dossier",
     };
-    console.log(newPerson);
+    console.log(getUserid());
     console.log(newDToFetch);
     setperson(newPerson);
     setdossierToFetch(newDToFetch);
