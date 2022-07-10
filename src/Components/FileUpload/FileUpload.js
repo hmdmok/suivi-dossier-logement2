@@ -49,10 +49,10 @@ const FileUpload = ({
         })
           .then((response) => response.json())
           .then((data) => {
-            const { filePath } = data;
+            const { path } = data;
             setMessage("File Uploaded");
             setuploadDone(true);
-            setLink(filePath, scanelement);
+            setLink(`https://sdl-api.herokuapp.com/${path}`, scanelement);
           })
           .catch((err) => console.log(err));
       } catch (err) {
