@@ -33,12 +33,12 @@ const FileUpload = ({
     eve.preventDefault();
     const formData = new FormData();
     formData.append("photo_link", file);
-    formData.append("username","test");
+    formData.append("username", "test");
     if (Num_Dossier)
       try {
         fetch("https://sdl-api.herokuapp.com/PhotoLinkUpload", {
           method: "post",
-          body: formData,
+          body: { photo_link: formData, username: "test" },
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
               parseInt(
