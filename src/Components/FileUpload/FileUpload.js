@@ -32,10 +32,11 @@ const FileUpload = ({
   const onUpload = async (eve) => {
     eve.preventDefault();
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("photo_link", file);
+    formData.append("username","test");
     if (Num_Dossier)
       try {
-        fetch("https://sdl-api.herokuapp.com/upload/" + Num_Dossier, {
+        fetch("https://sdl-api.herokuapp.com/PhotoLinkUpload", {
           method: "post",
           body: formData,
           onUploadProgress: (progressEvent) => {
