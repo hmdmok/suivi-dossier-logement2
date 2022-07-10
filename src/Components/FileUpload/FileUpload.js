@@ -38,7 +38,7 @@ const FileUpload = ({
       try {
         fetch("https://sdl-api.herokuapp.com/PhotoLinkUpload", {
           method: "post",
-          body: { photo_link: formData, username: "test" },
+          body: formData,
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
               parseInt(
