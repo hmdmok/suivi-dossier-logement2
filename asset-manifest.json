@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/suivi-dossier-logement2/static/css/main.c6c3f4c7.css",
-    "main.js": "/suivi-dossier-logement2/static/js/main.9e0918ed.js",
+    "main.js": "/suivi-dossier-logement2/static/js/main.a8dd14c8.js",
     "static/js/787.5e31f354.chunk.js": "/suivi-dossier-logement2/static/js/787.5e31f354.chunk.js",
     "static/media/file.png": "/suivi-dossier-logement2/static/media/file.2b87dc63e2fba10c2ed7.png",
     "static/media/update.png": "/suivi-dossier-logement2/static/media/update.3685f476d0f696092d75.png",
     "static/media/demandeur.png": "/suivi-dossier-logement2/static/media/demandeur.187585350154310ba1fe.png",
     "index.html": "/suivi-dossier-logement2/index.html",
     "main.c6c3f4c7.css.map": "/suivi-dossier-logement2/static/css/main.c6c3f4c7.css.map",
-    "main.9e0918ed.js.map": "/suivi-dossier-logement2/static/js/main.9e0918ed.js.map",
+    "main.a8dd14c8.js.map": "/suivi-dossier-logement2/static/js/main.a8dd14c8.js.map",
     "787.5e31f354.chunk.js.map": "/suivi-dossier-logement2/static/js/787.5e31f354.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c6c3f4c7.css",
-    "static/js/main.9e0918ed.js"
+    "static/js/main.a8dd14c8.js"
   ]
 }
