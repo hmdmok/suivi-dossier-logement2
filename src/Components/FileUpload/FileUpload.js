@@ -9,7 +9,7 @@ const FileUpload = ({
   setLink,
   scanelement,
 }) => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState([]);
   const [filename, setFilename] = useState(titleFilename);
   const [message, setMessage] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
